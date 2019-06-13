@@ -6,7 +6,7 @@ The application might come in handy when for example:
 - your scrape targets are behind a NAT firewall and your prometheus instance cannot reach them from the outside.
 - for some reason you cannot or are not allowed to set up a prometheus client on the systems you wish to monitor.
 
-The tool is neither a service nor a daemon. If you want continuous poll/push, set up something like a CRON job.
+The tool is neither a service nor a daemon. If you want continuous pull/push, set up something like a CRON job.
 Values can be scraped from JSON by [dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/adjsn/simple-dot-notation-access-to-json-data.html#GUID-7249417B-A337-4854-8040-192D5CEFD576)
  or from HTML by [XPath](https://en.wikipedia.org/wiki/XPath).
 

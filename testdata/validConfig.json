@@ -1,0 +1,51 @@
+{
+  "scrapeTargets": [
+    {
+      "url": "https://jsonplaceholder.typicode.com/users",
+      "metrics": [
+        {
+          "name": "name",
+          "help": "help",
+          "path": "json.path.01",
+          "instrumentType": "gauge"
+        },
+        {
+          "name": "name",
+          "help": "help",
+          "path": "json.path.02",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "LabelName", "value": "LabelValue"}
+      ],
+      "mimeType": "json",
+      "jobName": "promName",
+      "timeoutInSecs": 15
+    },
+    {
+      "url": "https://jsonplaceholder.typicode.com/users",
+      "metrics": [
+        {
+          "name": "name",
+          "help": "help",
+          "path": "json.path.01",
+          "instrumentType": "gauge"
+        },
+        {
+          "name": "name",
+          "help": "help",
+          "path": "json.path.02",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "LabelName", "value": "LabelValue"}
+      ],
+      "mimeType": "json",
+      "jobName": "promName",
+      "timeoutInSecs": 15
+    }
+  ],
+  "pushGatewayUrl": "gateWayUrl"
+}

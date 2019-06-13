@@ -1,0 +1,14 @@
+{
+  "scrapeTargets": [
+    {
+      "url": "https://jsonplaceholder.typicode.com/users",
+      "path": "json.path",
+      "mimeType": "json",
+      "labels": [
+        {"name": "LabelName", "value": "LabelValue"}
+      ],
+      "jobName": "promName,
+      "timeoutInSeconds": 15
+    }
+  ]
+}

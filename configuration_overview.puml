@@ -8,6 +8,7 @@ class Configuration {
 
 class ScrapeTarget {
     url: string
+    basicAuth: BasicAuth
     contentType: string
     jobName: string
     timeoutInSecs: int
@@ -16,6 +17,13 @@ class ScrapeTarget {
 }
 
 Configuration -- ScrapeTarget
+
+class BasicAuth {
+    username: string
+    password: string
+}
+
+ScrapeTarget -- BasicAuth
 
 class Metric {
     name: string

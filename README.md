@@ -20,6 +20,10 @@ Currently PME supports following prometheus instruments:
 ## Configuration
 The configuration format is JSON.
 
+Configuration overview:
+
+![Configuration diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ndlarsen/prometheus-metrics-exporter/master/configuration_overview.puml)
+
 Configuration example:
 
 ```json

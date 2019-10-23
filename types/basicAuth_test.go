@@ -1,9 +1,10 @@
-package types
+package types_test
 
 import (
 	"encoding/json"
 	"fmt"
 	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/types"
 	"testing"
 )
 

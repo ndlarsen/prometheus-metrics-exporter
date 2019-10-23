@@ -6,12 +6,13 @@ import (
 )
 
 type ScrapeTarget struct {
-	Url           string   `json:"url"`
-	Metrics       []Metric `json:"metrics"`
-	Labels        []Label  `json:"labels"`
-	MimeType      string   `json:"mimeType"`
-	JobName       string   `json:"jobName"`
-	TimeoutInSecs int      `json:"timeoutInSecs"`
+	Url           string     `json:"url"`
+	BasicAuth     *BasicAuth `json:"basicAuth,omitempty"`
+	Metrics       []Metric   `json:"metrics"`
+	Labels        []Label    `json:"labels"`
+	MimeType      string     `json:"mimeType"`
+	JobName       string     `json:"jobName"`
+	TimeoutInSecs int        `json:"timeoutInSecs"`
 }
 
 func (st *ScrapeTarget) UnmarshalJSON(data []byte) error {
@@ -46,6 +47,10 @@ func (st *ScrapeTarget) UnmarshalJSON(data []byte) error {
 
 	if t.TimeoutInSecs < 1 {
 		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: TimeoutInSecs is empty"}
+	}
+
+	if t.BasicAuth != nil {
+		st.BasicAuth = t.BasicAuth
 	}
 
 	st.Url = t.Url

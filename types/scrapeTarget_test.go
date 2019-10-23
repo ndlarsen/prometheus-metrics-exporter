@@ -10,7 +10,11 @@ import (
 )
 
 var (
-	stUrl     = "testStUrl"
+	stUrl       = "testStUrl"
+	stBasicAuth = &BasicAuth{
+		Username: baUsername,
+		Password: baPassword,
+	}
 	stMetrics = []Metric{
 		{
 			Name:           mName,
@@ -43,14 +47,17 @@ func Test_ScrapeTarget_OK(t *testing.T) {
 	"Regex": "%s"
 }`, mName, mHelp, mPath, mInstrumentType, mRegex)
 
+	var baString = fmt.Sprintf(`{"username":"%s", "password": "%s"}`, baUsername, baPassword)
+
 	var stJsonString = fmt.Sprintf(`{
 	"url": "%s",
+	"basicAuth": %s,
 	"metrics": [%s],
 	"labels": [%s],
 	"mimeType": "%s",
 	"jobName": "%s",
 	"timeoutInSecs": %d
-}`, stUrl, metricJsonString, lblJsonString, stMimeType, stJobName, stTimeOutInSecs)
+}`, stUrl, baString, metricJsonString, lblJsonString, stMimeType, stJobName, stTimeOutInSecs)
 
 	var jsonBytes = []byte(stJsonString)
 
@@ -62,6 +69,12 @@ func Test_ScrapeTarget_OK(t *testing.T) {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	} else if st.Url != stUrl {
 		t.Fatalf("Test failed unexpectedly: Url mismatch")
+	} else if stBasicAuth == nil || !reflect.DeepEqual(st.BasicAuth, stBasicAuth) {
+		t.Fatalf("Test failed unexpectedly: BasicAuth mismatch")
+	} else if stBasicAuth.Username != baUsername {
+		t.Fatalf("Test failed unexpectedly: BasicAuth.Username mismatch")
+	} else if stBasicAuth.Password != baPassword {
+		t.Fatalf("Test failed unexpectedly: BasicAuth.Password mismatch")
 	} else if len(st.Metrics) != len(stMetrics) || !reflect.DeepEqual(st.Metrics, stMetrics) {
 		t.Fatalf("Test failed unexpectedly: Metrics mismatch")
 	} else if len(st.Labels) != len(stLabels) || !reflect.DeepEqual(st.Labels, stLabels) {
@@ -110,6 +123,135 @@ func Test_ScrapeTarget_Invalid_JSON(t *testing.T) {
 		t.Logf("Test succeeded.")
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
+	}
+
+}
+
+func Test_ScrapeTarget_Empty_BasicAuth(t *testing.T) {
+
+	var lblJsonString = fmt.Sprintf(`{"name": "%s", "value": "%s"}`, lName, lValue)
+
+	var metricJsonString = fmt.Sprintf(`{
+	"Name": "%s",
+	"Help": "%s",
+	"Path": "%s",
+	"InstrumentType": "%s",
+	"Regex": "%s"
+}`, mName, mHelp, mPath, mInstrumentType, mRegex)
+
+	var stJsonString = fmt.Sprintf(`{
+	"url": "%s",
+	"metrics": [%s],
+	"labels": [%s],
+	"mimeType": "%s",
+	"jobName": "%s",
+	"timeoutInSecs": %d
+}`, stUrl, metricJsonString, lblJsonString, stMimeType, stJobName, stTimeOutInSecs)
+
+	var jsonBytes = []byte(stJsonString)
+
+	var st ScrapeTarget
+
+	err := st.UnmarshalJSON(jsonBytes)
+
+	if err != nil {
+		t.Fatalf("Test failed unexpectedly: %s", err.Error())
+	} else if st.Url != stUrl {
+		t.Fatalf("Test failed unexpectedly: Url mismatch")
+	} else if st.BasicAuth != nil {
+		t.Fatalf("Test failed unexpectedly: BasicAuth mismatch")
+	} else if len(st.Metrics) != len(stMetrics) || !reflect.DeepEqual(st.Metrics, stMetrics) {
+		t.Fatalf("Test failed unexpectedly: Metrics mismatch")
+	} else if len(st.Labels) != len(stLabels) || !reflect.DeepEqual(st.Labels, stLabels) {
+		t.Fatalf("Test failed unexpectedly: Labels mismatch")
+	} else if st.MimeType != stMimeType {
+		t.Fatalf("Test failed unexpectedly: MimeType mismatch")
+	} else if st.JobName != stJobName {
+		t.Fatalf("Test failed unexpectedly: JobName mismatch")
+	} else if st.TimeoutInSecs != stTimeOutInSecs {
+		t.Fatalf("Test failed unexpectedly: TimeOutInSecs mismatch")
+	} else {
+		t.Logf("Test succeeded.")
+	}
+
+}
+
+func Test_ScrapeTarget_BasicAuth_Empty_Username(t *testing.T) {
+
+	var lblJsonString = fmt.Sprintf(`{"name": "%s", "value": "%s"}`, lName, lValue)
+
+	var metricJsonString = fmt.Sprintf(`{
+	"Name": "%s",
+	"Help": "%s",
+	"Path": "%s",
+	"InstrumentType": "%s",
+	"Regex": "%s"
+}`, mName, mHelp, mPath, mInstrumentType, mRegex)
+
+	var baString = fmt.Sprintf(`{"username":"", "password": "%s"}`, baPassword)
+
+	var stJsonString = fmt.Sprintf(`{
+	"url": "%s",
+	"basicAuth": %s,
+	"metrics": [%s],
+	"labels": [%s],
+	"mimeType": "%s",
+	"jobName": "%s",
+	"timeoutInSecs": %d
+}`, stUrl, baString, metricJsonString, lblJsonString, stMimeType, stJobName, stTimeOutInSecs)
+
+	var jsonBytes = []byte(stJsonString)
+
+	var st ScrapeTarget
+
+	err := st.UnmarshalJSON(jsonBytes)
+
+	if err != nil && err == err.(ErrorBasicAuthUnmarshal) && err.Error() == "Username is empty" {
+		t.Logf("Test succeeded: %s", err.Error())
+	} else if err != nil {
+		t.Fatalf("Test failed unexpectedly: %s", err.Error())
+	} else {
+		t.Fatal("Test Failed unexpectedly.")
+	}
+
+}
+
+func Test_ScrapeTarget_BasicAuth_Empty_Password(t *testing.T) {
+
+	var lblJsonString = fmt.Sprintf(`{"name": "%s", "value": "%s"}`, lName, lValue)
+
+	var metricJsonString = fmt.Sprintf(`{
+	"Name": "%s",
+	"Help": "%s",
+	"Path": "%s",
+	"InstrumentType": "%s",
+	"Regex": "%s"
+}`, mName, mHelp, mPath, mInstrumentType, mRegex)
+
+	var baString = fmt.Sprintf(`{"username":"%s", "password": ""}`, baUsername)
+
+	var stJsonString = fmt.Sprintf(`{
+	"url": "%s",
+	"basicAuth": %s,
+	"metrics": [%s],
+	"labels": [%s],
+	"mimeType": "%s",
+	"jobName": "%s",
+	"timeoutInSecs": %d
+}`, stUrl, baString, metricJsonString, lblJsonString, stMimeType, stJobName, stTimeOutInSecs)
+
+	var jsonBytes = []byte(stJsonString)
+
+	var st ScrapeTarget
+
+	err := st.UnmarshalJSON(jsonBytes)
+
+	if err != nil && err == err.(ErrorBasicAuthUnmarshal) && err.Error() == "Password is empty" {
+		t.Logf("Test succeeded: %s", err.Error())
+	} else if err != nil {
+		t.Fatalf("Test failed unexpectedly: %s", err.Error())
+	} else {
+		t.Fatal("Test Failed unexpectedly.")
 	}
 
 }

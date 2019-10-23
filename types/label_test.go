@@ -41,13 +41,12 @@ func Test_Label_Invalid_JSON(t *testing.T) {
 
 	var lbl Label
 
-	//err := json.Unmarshal(jsonBytes, &lbl)
-	err := lbl.UnmarshalJSON(jsonBytes)
+	err := json.Unmarshal(jsonBytes, &lbl)
 
-	if err == nil {
-		t.Fatalf("Test failed unexpectedly")
+	if err != nil && err == err.(*json.SyntaxError) {
+		t.Logf("Test succeeded.")
 	} else if err != nil {
-		t.Logf("Test failed as expected: %s", err.Error())
+		t.Fatalf("Test failed unexpectedly")
 	}
 
 }

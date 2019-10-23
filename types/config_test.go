@@ -104,8 +104,7 @@ func Test_Config_Invalid_JSON(t *testing.T) {
 
 	var conf Config
 
-	//err := json.Unmarshal(jsonBytes, &conf)
-	err := conf.UnmarshalJSON(jsonBytes)
+	err := json.Unmarshal(jsonBytes, &conf)
 
 	if err != nil && err == err.(*json.SyntaxError) {
 		t.Logf("Test succeeded: %s", err.Error())

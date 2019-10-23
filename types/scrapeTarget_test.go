@@ -56,7 +56,6 @@ func Test_ScrapeTarget_OK(t *testing.T) {
 
 	var st ScrapeTarget
 
-	//err := json.Unmarshal(jsonBytes, &st)
 	err := st.UnmarshalJSON(jsonBytes)
 
 	if err != nil {
@@ -109,7 +108,7 @@ func Test_ScrapeTarget_Invalid_JSON(t *testing.T) {
 
 	if err != nil && err == err.(*json.SyntaxError) {
 		t.Logf("Test succeeded.")
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -144,7 +143,7 @@ func Test_ScrapeTarget_Empty_Url(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -171,7 +170,7 @@ func Test_ScrapeTarget_Empty_Metrics(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -204,7 +203,7 @@ func Test_ScrapeTarget_Empty_Labels(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -239,7 +238,7 @@ func Test_ScrapeTarget_Empty_MimeType(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -274,7 +273,7 @@ func Test_ScrapeTarget_Empty_JobName(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 
@@ -308,7 +307,7 @@ func Test_ScrapeTarget_Empty_Timeout(t *testing.T) {
 
 	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
-	} else {
+	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
 	}
 

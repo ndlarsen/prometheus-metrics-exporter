@@ -1,6 +1,6 @@
 package pmeerrors
 
-// Label realted
+// Label related
 type ErrorLabelUnmarshal struct {
 	Err string
 }

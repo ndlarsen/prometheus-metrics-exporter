@@ -17,7 +17,6 @@ const (
 )
 
 func Test_Metric_OK(t *testing.T) {
-
 	var jsonString = fmt.Sprintf(`{
 	"Name": "%s",
 	"Help": "%s",
@@ -47,11 +46,9 @@ func Test_Metric_OK(t *testing.T) {
 	} else {
 		t.Logf("Test succeeded.")
 	}
-
 }
 
 func Test_Metric_Empty_Name(t *testing.T) {
-
 	var jsonString = fmt.Sprintf(`{
 	"Help": "%s",
 	"Path": "%s",
@@ -70,11 +67,9 @@ func Test_Metric_Empty_Name(t *testing.T) {
 	} else {
 		t.Fatalf("Test failed unexpectedly")
 	}
-
 }
 
 func Test_Metric_Empty_Help(t *testing.T) {
-
 	var jsonString = fmt.Sprintf(`{
 	"Name": "%s",
 	"Path": "%s",
@@ -93,11 +88,9 @@ func Test_Metric_Empty_Help(t *testing.T) {
 	} else {
 		t.Fatalf("Test failed unexpectedly")
 	}
-
 }
 
 func Test_Metric_Empty_Path(t *testing.T) {
-
 	var jsonString = fmt.Sprintf(`{
 	"Name": "%s",
 	"Help": "%s",
@@ -116,11 +109,9 @@ func Test_Metric_Empty_Path(t *testing.T) {
 	} else {
 		t.Fatalf("Test failed unexpectedly")
 	}
-
 }
 
 func Test_Metric_Empty_InstrumentType(t *testing.T) {
-
 	var jsonString = fmt.Sprintf(`{
 	"Name": "%s",
 	"Help": "%s",
@@ -139,7 +130,6 @@ func Test_Metric_Empty_InstrumentType(t *testing.T) {
 	} else {
 		t.Fatalf("Test failed unexpectedly")
 	}
-
 }
 
 func Test_Metric_Json_Invalid_JSON(t *testing.T) {

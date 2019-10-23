@@ -1,0 +1,36 @@
+@startuml
+
+class Configuration {
+    pushGatewayUrl: string
+    scrapeTargets: []ScrapeTarget
+
+}
+
+class ScrapeTarget {
+    url: string
+    contentType: string
+    jobName: string
+    timeoutInSecs: int
+    metrics: []Metric
+    labels: []Label
+}
+
+Configuration -- ScrapeTarget
+
+class Metric {
+    name: string
+    help: string
+    path: string
+    instrumentType: string
+}
+
+ScrapeTarget -- Metric
+
+class Label {
+    name: string
+    value: string
+}
+
+ScrapeTarget -- Label
+
+@enduml

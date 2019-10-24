@@ -130,7 +130,7 @@ Configuration example:
 - value: the value of the label.
 
 ## Go version
-The application is written in go v. 1.11.2
+The application was originally written in go v. 1.11.2. Latest tested in 1.11.13
 
 ## External libraries and/or modules
 The following libraries and/or modules are directly used in the project.

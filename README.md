@@ -32,6 +32,10 @@ Configuration example:
   "scrapeTargets": [
     {
       "url": "http://some.url/path",
+      "basicAuth": {
+                    "username": "username1",
+                    "password": "password123"
+                   },
       "contentType": "json",
       "jobName": "jobNameGoesHere",
       "timeoutInSecs": 10,
@@ -101,11 +105,16 @@ Configuration example:
 
 ### ScrapeTargets
 - url: the url to scrape from
+- basicAuth (optional) : basic auth information (Documented below)
 - contentType: the content type of the scrape url. JSON and HTML are supported.
 - jobName: the job name to display in the pushgateway.
 - timeoutInSecs: the time to wait for response from the scrape target before timing out.
 - metrics: a list of metrics to pull from the scrape target response. (Documented below)
 - labels: a list of labels for the current job. (Documented below)
+
+### BasicAuth (optional)
+- username: the basic auth username
+- password: the basic auth password
 
 ### Metrics
 - name: the name for the instrument.

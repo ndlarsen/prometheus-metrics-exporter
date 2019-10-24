@@ -58,7 +58,7 @@ func main() {
 				pusher.Grouping(l.Name, l.Value)
 			}
 
-			content, contentType, err := requester.GetContent(sTarget.Url, sTarget.MimeType, sTarget.TimeoutInSecs)
+			content, contentType, err := requester.GetContent(sTarget.Url, sTarget.BasicAuth, sTarget.MimeType, sTarget.TimeoutInSecs)
 
 			if err != nil {
 				log.Println(err)

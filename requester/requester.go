@@ -6,25 +6,46 @@ import (
 	"mime"
 	"net/http"
 	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/types"
 	"strings"
 	"time"
 )
 
-func GetContent(url string, mimeType string, timeoutInSecs int) ([]byte, string, error) {
+func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs int) ([]byte, string, error) {
 
-	var httpClient http.Client
+	client := http.Client{}
+	client.Timeout = time.Second * time.Duration(timeoutInSecs)
 
-	httpClient.Timeout = time.Second * time.Duration(timeoutInSecs)
-	response, err := httpClient.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
-		errString := fmt.Sprintf("Requester: Timeout at \"%s\"", url)
-		return nil, "", ErrorRequestTimeOut{Err: errString}
+		return nil, "", err
+	}
+
+	if basicAuth != nil {
+		req.SetBasicAuth(basicAuth.Username, basicAuth.Password)
+	}
+
+	response, err := client.Do(req)
+
+	if err != nil {
+		errString := fmt.Sprintf("Requester: Client error with \"%s\"", err.Error())
+		return nil, "", ErrorRequestClient{Err: errString}
 	}
 
 	responseStatus := response.StatusCode
 
-	if responseStatus == http.StatusNotFound {
+	if responseStatus == http.StatusUnauthorized {
+		errString := fmt.Sprintf(
+			"Requester: Response status code was \"%d\" on \"%s\"",
+			responseStatus, url)
+		return nil, "", ErrorRequestResponseStatus401{Err: errString}
+	} else if responseStatus == http.StatusForbidden {
+		errString := fmt.Sprintf(
+			"Requester: Response status code was \"%d\" on \"%s\"",
+			responseStatus, url)
+		return nil, "", ErrorRequestResponseStatus403{Err: errString}
+	} else if responseStatus == http.StatusNotFound {
 
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",

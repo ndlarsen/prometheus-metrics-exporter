@@ -1,12 +1,36 @@
 package pmeerrors
 
 // Request related
+type ErrorRequestClient struct {
+	Err string
+}
+
+func (r ErrorRequestClient) Error() string {
+	return r.Err
+}
+
 type ErrorRequestTimeOut struct {
 	Err string
 }
 
 func (r ErrorRequestTimeOut) Error() string {
 	return r.Err
+}
+
+type ErrorRequestResponseStatus401 struct {
+	Err string
+}
+
+func (c ErrorRequestResponseStatus401) Error() string {
+	return c.Err
+}
+
+type ErrorRequestResponseStatus403 struct {
+	Err string
+}
+
+func (c ErrorRequestResponseStatus403) Error() string {
+	return c.Err
 }
 
 type ErrorRequestResponseStatus404 struct {

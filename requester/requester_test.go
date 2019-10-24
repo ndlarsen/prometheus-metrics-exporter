@@ -6,14 +6,25 @@ import (
 	"net/http/httptest"
 	. "prometheus-metrics-exporter/pmeerrors"
 	. "prometheus-metrics-exporter/requester"
+	. "prometheus-metrics-exporter/types"
+	"strings"
 	"testing"
 	"time"
 )
 
 const (
+	username      = "username"
+	password      = "password"
 	mimeType      = "json"
 	timeoutInSecs = 10
 )
+
+func BA() *BasicAuth {
+	return &BasicAuth{
+		Username: username,
+		Password: password,
+	}
+}
 
 // Timeout test
 func Test_GetContent_Timeout(t *testing.T) {
@@ -28,10 +39,10 @@ func Test_GetContent_Timeout(t *testing.T) {
 
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, 1)
+	_, _, err := GetContent(ts.URL, nil, mimeType, 1)
 
-	if err != nil && err == err.(ErrorRequestTimeOut) {
-		t.Log("OK. Timeout as expected")
+	if err != nil && err == err.(ErrorRequestClient) && strings.Contains(err.Error(), "Client.Timeout") {
+		t.Log("OK. Client error as expected")
 	} else if err != nil && err != err.(*ErrorRequestTimeOut) {
 		t.Fatalf("Test failed with an unexpexted error: %s", err)
 	} else {
@@ -52,7 +63,7 @@ func Test_GetContent_ResponseCode404(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestResponseStatus404) {
 		t.Log("OK. As expected the response code was 404")
@@ -76,7 +87,7 @@ func Test_GetContent_ResponseCode500(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestResponseStatus500) {
 		t.Log("OK. As expected the response code was 500")
@@ -100,7 +111,7 @@ func Test_GetContent_ResponseCodeNot200(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestResponseStatusNot200) {
 		t.Log("OK. As expected the response code was not 200")
@@ -123,7 +134,7 @@ func Test_GetContent_ResponseCode200NoContentType(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestContentTypeParse) {
 		t.Log("OK. As expected no content type found")
@@ -147,7 +158,7 @@ func Test_GetContent_NotAcceptedContentType(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestInvalidContentTypeFound) {
 		t.Log("OK. As expected invalid content type found")
@@ -173,7 +184,7 @@ func Test_GetContent_RequestBodyReadError(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	_, _, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err != nil && err == err.(ErrorRequestUnableToReadBody) {
 		t.Log("OK. Unable to read body as expected.")
@@ -204,7 +215,7 @@ func Test_GetContent_OK(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(handler))
 	defer ts.Close()
 
-	receivedContent, receivedMimeType, err := GetContent(ts.URL, mimeType, timeoutInSecs)
+	receivedContent, receivedMimeType, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
 	if err == nil && bytes.Compare(receivedContent, responseOKBytes) == 0 && receivedMimeType == mimeType {
 		t.Log("OK. Ideal line of events")
@@ -214,6 +225,160 @@ func Test_GetContent_OK(t *testing.T) {
 		t.Fatalf("Unexpected mime type. Expected \"%s\" but got \"%s\"", mimeType, receivedMimeType)
 	} else if bytes.Compare(receivedContent, responseOKBytes) == 0 {
 		t.Fatalf("Mismatching content. Expected \"%s\" but got \"%s\"", responseOKBytes, receivedContent)
+	} else {
+		t.Fatal("Test failed unexpectedly.")
+	}
+
+}
+
+func Test_GetContent_OK_With_BasicAuth(t *testing.T) {
+
+	responseOKBytes := []byte(`{"response": "ok"}`)
+
+	// for the fake http server
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, err := w.Write(responseOKBytes)
+
+		user, pass, ok := r.BasicAuth()
+
+		if user == user && pass == password {
+			w.WriteHeader(http.StatusOK)
+			return
+		} else if user != username || pass != password || !ok {
+			t.Fatalf("Test failed unexpectedly: (username: %t), (password: %t), (ok: %t)", user == username, pass == password, ok)
+		}
+
+		if err != nil {
+			t.Fatalf("Test failed unexpectedly: %s", err.Error())
+		}
+	}
+
+	// creating fake test server
+	ts := httptest.NewServer(http.HandlerFunc(handler))
+	defer ts.Close()
+
+	receivedContent, receivedMimeType, err := GetContent(ts.URL, BA(), mimeType, timeoutInSecs)
+
+	if err == nil && bytes.Compare(receivedContent, responseOKBytes) == 0 && receivedMimeType == mimeType {
+		t.Log("OK. Ideal line of events")
+	} else if err != nil {
+		t.Fatalf("Method failed unexpectedly: %s", err)
+	} else if receivedMimeType != mimeType {
+		t.Fatalf("Unexpected mime type. Expected \"%s\" but got \"%s\"", mimeType, receivedMimeType)
+	} else if bytes.Compare(receivedContent, responseOKBytes) == 0 {
+		t.Fatalf("Mismatching content. Expected \"%s\" but got \"%s\"", responseOKBytes, receivedContent)
+	} else {
+		t.Fatal("Test failed unexpectedly.")
+	}
+
+}
+
+func Test_GetContent_With_BasicAuth_No_Username(t *testing.T) {
+
+	// for the fake http server
+	handler := func(w http.ResponseWriter, r *http.Request) {
+
+		user, pass, ok := r.BasicAuth()
+
+		if !ok {
+			t.Fatalf("Test failed unexpectedly: Couldn't get BasicAuth from request")
+		}
+
+		if user != username || pass != password {
+			http.Error(w, "Could not authenticate", http.StatusUnauthorized)
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+
+		t.Fatalf("Test failed unexpectedly")
+	}
+
+	// creating fake test server
+	ts := httptest.NewServer(http.HandlerFunc(handler))
+	defer ts.Close()
+
+	ba := &BasicAuth{Username: "", Password: password}
+	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
+
+	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+		t.Log("OK. Ideal line of events")
+	} else if err != nil {
+		t.Fatalf("Method failed unexpectedly: %s", err)
+	} else {
+		t.Fatal("Test failed unexpectedly.")
+	}
+
+}
+
+func Test_GetContent_With_BasicAuth_No_Password(t *testing.T) {
+
+	// for the fake http server
+	handler := func(w http.ResponseWriter, r *http.Request) {
+
+		user, pass, ok := r.BasicAuth()
+
+		if !ok {
+			t.Fatalf("Test failed unexpectedly: Couldn't get BasicAuth from request")
+		}
+
+		if user != username || pass != password {
+			http.Error(w, "Could not authenticate", http.StatusUnauthorized)
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+
+		t.Fatalf("Test failed unexpectedly")
+	}
+
+	// creating fake test server
+	ts := httptest.NewServer(http.HandlerFunc(handler))
+	defer ts.Close()
+
+	ba := &BasicAuth{Username: "", Password: password}
+	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
+
+	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+		t.Log("OK. Ideal line of events")
+	} else if err != nil {
+		t.Fatalf("Method failed unexpectedly: %s", err)
+	} else {
+		t.Fatal("Test failed unexpectedly.")
+	}
+
+}
+
+func Test_GetContent_With_BasicAuth_Neither_Username_Nor_Password(t *testing.T) {
+
+	// for the fake http server
+	handler := func(w http.ResponseWriter, r *http.Request) {
+
+		user, pass, ok := r.BasicAuth()
+
+		if !ok {
+			t.Fatalf("Test failed unexpectedly: Couldn't get BasicAuth from request")
+		}
+
+		if user != username && pass != password {
+			http.Error(w, "Could not authenticate", http.StatusUnauthorized)
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+
+		t.Fatalf("Test failed unexpectedly")
+	}
+
+	// creating fake test server
+	ts := httptest.NewServer(http.HandlerFunc(handler))
+	defer ts.Close()
+
+	ba := &BasicAuth{Username: "", Password: ""}
+	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
+
+	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+		t.Log("OK. Ideal line of events")
+	} else if err != nil {
+		t.Fatalf("Method failed unexpectedly: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
 	}

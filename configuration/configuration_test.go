@@ -10,7 +10,7 @@ import (
 )
 
 func TestInvalidFileName(t *testing.T) {
-	var invalidFileName = "../testdata/invalidFileName.json"
+	var invalidFileName = "../test_related/invalidFileName.json"
 	_, err := LoadConfig(invalidFileName)
 
 	if recover() != nil {
@@ -26,7 +26,7 @@ func TestInvalidFileName(t *testing.T) {
 }
 
 func TestInvalidFileFormat(t *testing.T) {
-	var fileName = "../testdata/invalidJsonFormat.json"
+	var fileName = "../test_related/invalidJsonFormat.json"
 	_, err := LoadConfig(fileName)
 
 	if err == err.(ErrorConfigConversion) {
@@ -40,7 +40,7 @@ func TestInvalidFileFormat(t *testing.T) {
 
 func TestValidFileFormat(t *testing.T) {
 
-	const fullPath = "../testdata/validConfig.json"
+	const fullPath = "../test_related/validConfig.json"
 
 	fileConfig, loadErr := LoadConfig(fullPath)
 

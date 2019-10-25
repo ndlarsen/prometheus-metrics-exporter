@@ -11,7 +11,7 @@ import (
 
 func TestFetchValue_NoSuchElement(t *testing.T) {
 
-	handle, openErr := os.Open("../testdata/lorem_ipsum.html")
+	handle, openErr := os.Open("../test_related/lorem_ipsum.html")
 	defer handle.Close()
 
 	if openErr != nil {
@@ -32,7 +32,7 @@ func TestFetchValue_NoSuchElement(t *testing.T) {
 
 func TestFetchValue_MoreThanOneElement(t *testing.T) {
 
-	handle, openErr := os.Open("../testdata/lorem_ipsum.html")
+	handle, openErr := os.Open("../test_related/lorem_ipsum.html")
 	defer handle.Close()
 
 	if openErr != nil {

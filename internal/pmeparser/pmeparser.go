@@ -3,9 +3,9 @@ package pmeparser
 import (
 	"bytes"
 	"fmt"
-	"prometheus-metrics-exporter/htmlparser"
-	"prometheus-metrics-exporter/jsonparser"
-	. "prometheus-metrics-exporter/pmeerrors"
+	"prometheus-metrics-exporter/internal/htmlparser"
+	"prometheus-metrics-exporter/internal/jsonparser"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 )
 
 func FetchValue(url string, path string, data []byte, contentType string, regex string) (float64, error) {

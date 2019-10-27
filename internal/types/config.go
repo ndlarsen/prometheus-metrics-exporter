@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	"prometheus-metrics-exporter/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors"
 )
 
 type Config struct {

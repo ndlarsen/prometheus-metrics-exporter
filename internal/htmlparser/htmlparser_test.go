@@ -1,17 +1,17 @@
-package htmlparser
+package htmlparser_test
 
 import (
 	"bytes"
 	"io"
-	//"io/ioutil"
 	"os"
-	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/internal/htmlparser"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 	"testing"
 )
 
 func TestFetchValue_NoSuchElement(t *testing.T) {
 
-	handle, openErr := os.Open("../test_related/lorem_ipsum.html")
+	handle, openErr := os.Open("../../test/lorem_ipsum.html")
 	defer handle.Close()
 
 	if openErr != nil {
@@ -32,7 +32,7 @@ func TestFetchValue_NoSuchElement(t *testing.T) {
 
 func TestFetchValue_MoreThanOneElement(t *testing.T) {
 
-	handle, openErr := os.Open("../test_related/lorem_ipsum.html")
+	handle, openErr := os.Open("../../test/lorem_ipsum.html")
 	defer handle.Close()
 
 	if openErr != nil {
@@ -92,7 +92,7 @@ func Test_extract_OK(t *testing.T) {
 	path := "html/body/ul/li[1]"
 	expectedResult := "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
 
-	result, parseErr := extract(path, bytes.NewBuffer([]byte(html)))
+	result, parseErr := Extract(path, bytes.NewBuffer([]byte(html)))
 
 	if parseErr == nil && result == expectedResult {
 		t.Log("Test succeeded as expected.")

@@ -1,8 +1,8 @@
 package pmeparser_test
 
 import (
-	. "prometheus-metrics-exporter/pmeerrors"
-	. "prometheus-metrics-exporter/pmeparser"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeparser"
 	"testing"
 )
 

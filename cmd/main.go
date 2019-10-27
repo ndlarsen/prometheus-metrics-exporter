@@ -1,4 +1,4 @@
-package main
+package cmd
 
 import (
 	"flag"
@@ -6,11 +6,11 @@ import (
 	"github.com/prometheus/client_golang/prometheus/push"
 	"log"
 	"os"
-	"prometheus-metrics-exporter/configuration"
-	"prometheus-metrics-exporter/instrument"
-	"prometheus-metrics-exporter/pmeparser"
-	"prometheus-metrics-exporter/requester"
-	"prometheus-metrics-exporter/types"
+	"prometheus-metrics-exporter/internal/configuration"
+	"prometheus-metrics-exporter/internal/instrument"
+	"prometheus-metrics-exporter/internal/pmeparser"
+	"prometheus-metrics-exporter/internal/requester"
+	"prometheus-metrics-exporter/internal/types"
 	"sync"
 )
 

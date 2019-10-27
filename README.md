@@ -22,7 +22,7 @@ The configuration format is JSON.
 
 Configuration overview:
 
-![Configuration diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ndlarsen/prometheus-metrics-exporter/master/configuration_overview.puml)
+![Configuration diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ndlarsen/prometheus-metrics-exporter/master/docs/configuration_overview.puml)
 
 Configuration example:
 

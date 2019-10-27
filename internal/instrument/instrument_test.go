@@ -4,7 +4,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/push"
 	"net/http"
 	"net/http/httptest"
-	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 	"testing"
 )
 

@@ -3,7 +3,7 @@ package jsonparser
 import (
 	"fmt"
 	"github.com/tidwall/gjson"
-	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 	"strconv"
 )
 

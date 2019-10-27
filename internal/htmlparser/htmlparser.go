@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"github.com/antchfx/htmlquery"
 	"io"
-	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 	"regexp"
 	"strconv"
 )
 
 func FetchValue(path string, reader io.Reader, pattern string) (float64, error) {
 
-	value, err := extract(path, reader)
+	value, err := Extract(path, reader)
 
 	if err != nil {
 		return -1, err
@@ -33,7 +33,7 @@ func FetchValue(path string, reader io.Reader, pattern string) (float64, error) 
 
 }
 
-func extract(path string, reader io.Reader) (string, error) {
+func Extract(path string, reader io.Reader) (string, error) {
 	html, err := htmlquery.Parse(reader)
 
 	if err != nil {

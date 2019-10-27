@@ -3,8 +3,8 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/pmeerrors"
-	. "prometheus-metrics-exporter/types"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/types"
 	"reflect"
 	"testing"
 )

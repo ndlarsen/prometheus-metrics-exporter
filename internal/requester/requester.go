@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"mime"
 	"net/http"
-	. "prometheus-metrics-exporter/pmeerrors"
-	. "prometheus-metrics-exporter/types"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/types"
 	"strings"
 	"time"
 )

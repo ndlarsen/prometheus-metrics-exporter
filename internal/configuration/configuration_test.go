@@ -2,15 +2,15 @@ package configuration_test
 
 import (
 	"encoding/json"
-	. "prometheus-metrics-exporter/configuration"
-	. "prometheus-metrics-exporter/pmeerrors"
-	"prometheus-metrics-exporter/types"
+	. "prometheus-metrics-exporter/internal/configuration"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/types"
 	"reflect"
 	"testing"
 )
 
 func TestInvalidFileName(t *testing.T) {
-	var invalidFileName = "../test_related/invalidFileName.json"
+	var invalidFileName = "../../test/invalidFileName.json"
 	_, err := LoadConfig(invalidFileName)
 
 	if recover() != nil {
@@ -26,7 +26,7 @@ func TestInvalidFileName(t *testing.T) {
 }
 
 func TestInvalidFileFormat(t *testing.T) {
-	var fileName = "../test_related/invalidJsonFormat.json"
+	var fileName = "../../test/invalidJsonFormat.json"
 	_, err := LoadConfig(fileName)
 
 	if err == err.(ErrorConfigConversion) {
@@ -40,7 +40,7 @@ func TestInvalidFileFormat(t *testing.T) {
 
 func TestValidFileFormat(t *testing.T) {
 
-	const fullPath = "../test_related/validConfig.json"
+	const fullPath = "../../test/validConfig.json"
 
 	fileConfig, loadErr := LoadConfig(fullPath)
 
@@ -101,7 +101,7 @@ func TestValidFileFormat(t *testing.T) {
 }`
 
 	var jsonBytes = []byte(jsonString)
-	var stringConfig *types.Config
+	var stringConfig *Config
 
 	err := json.Unmarshal(jsonBytes, &stringConfig)
 

@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	. "prometheus-metrics-exporter/pmeerrors"
-	. "prometheus-metrics-exporter/types"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/types"
 )
 
 func LoadConfig(configFile string) (*Config, error) {

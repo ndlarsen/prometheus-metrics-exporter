@@ -5,7 +5,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/push"
 	"net/url"
-	. "prometheus-metrics-exporter/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeerrors"
 )
 
 func CreateInstrument(instrumentType string, path string, name string, help string, value float64) (prometheus.Collector, error) {

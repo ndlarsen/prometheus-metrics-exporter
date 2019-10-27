@@ -79,10 +79,7 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 
 	validContentType := func(contentType string, expectedContentType string) bool {
 		strArr := strings.Split(contentType, "/")
-		if len(strArr) == 2 && strArr[1] == expectedContentType {
-			return true
-		}
-		return false
+		return len(strArr) == 2 && strArr[1] == expectedContentType
 	}(actualContentType, expectedContentType)
 
 	if !validContentType {
@@ -93,7 +90,12 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 	}
 
 	body, err := ioutil.ReadAll(response.Body)
-	defer response.Body.Close()
+
+	defer func() {
+		if _err := response.Body.Close(); _err != nil {
+			err = _err
+		}
+	}()
 
 	if err != nil {
 		errStr := fmt.Sprintf("Requester: Unable to read from body \"%s\"", err)

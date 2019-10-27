@@ -36,7 +36,7 @@ Configuration example:
                     "username": "username1",
                     "password": "password123"
                    },
-      "contentType": "json",
+      "mimeType": "json",
       "jobName": "jobNameGoesHere",
       "timeoutInSecs": 10,
       "metrics": [
@@ -66,7 +66,7 @@ Configuration example:
     },
     {
       "url": "http://another.url/path",
-      "contentType": "html",
+      "mimeType": "html",
       "jobName": "anotherJobName",
       "timeoutInSecs": 10,
       "metrics": [
@@ -106,7 +106,7 @@ Configuration example:
 ### ScrapeTargets
 - url: the url to scrape from
 - basicAuth (optional) : basic auth information (Documented below)
-- contentType: the content type of the scrape url. JSON and HTML are supported.
+- mimeType: the content type of the scrape url. JSON and HTML are supported.
 - jobName: the job name to display in the pushgateway.
 - timeoutInSecs: the time to wait for response from the scrape target before timing out.
 - metrics: a list of metrics to pull from the scrape target response. (Documented below)

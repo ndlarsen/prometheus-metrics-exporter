@@ -1,0 +1,22 @@
+{
+  "pushGatewayUrl": "http://localhost:9091",
+  "scrapeTargets": [
+    {
+      "url": "http://localhost:8080/jsonWithoutBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonNoBasicAuthJobName",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name",
+          "help": "test json help value",
+          "path": "friends.1.id",
+          "instrumentType": "gauge"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonNoBasicAuthLabelName", "value": "TestJsonNoBasicAuthLabelValue"}
+      ]
+    }
+  ]
+}

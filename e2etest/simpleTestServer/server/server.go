@@ -1,12 +1,13 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
-	. "prometheus-metrics-exporter/e2etest/simpleTestServer/server/middleware"
-	. "prometheus-metrics-exporter/e2etest/simpleTestServer/server/writers"
+	. "simpleTestServer/server/middleware"
+	. "simpleTestServer/server/writers"
 )
 
-func Server(){
+func Server(port *string) {
 
 	jsonHandler := http.HandlerFunc(JsonWriter)
 	htmlHandler := http.HandlerFunc(HtmlWriter)
@@ -15,5 +16,7 @@ func Server(){
 	http.Handle("/htmlWithoutBasicAuth", MethodValidatorMiddleware(htmlHandler))
 	http.Handle("/htmlWithBasicAuth", MethodValidatorMiddleware(BasicAuthMiddleware(htmlHandler)))
 
-	http.ListenAndServe(":8080", nil)
+	fPort := fmt.Sprintf(":%s", *port)
+
+	http.ListenAndServe(fPort, nil)
 }

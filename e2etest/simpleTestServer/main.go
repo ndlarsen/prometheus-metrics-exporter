@@ -1,7 +1,21 @@
 package main
 
-import . "prometheus-metrics-exporter/e2etest/simpleTestServer/server"
+import (
+	"flag"
+	"os"
+	. "simpleTestServer/server"
+)
 
 func main() {
-	Server()
+
+	port := flag.String("port", "", "the port the server will listen on")
+
+	flag.Parse()
+
+	if *port == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	Server(port)
 }

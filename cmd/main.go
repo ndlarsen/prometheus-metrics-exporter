@@ -62,7 +62,11 @@ func main() {
 
 			if err != nil {
 				log.Println(err)
+				wg1.Done()
+				return
 			}
+
+			hasMetrics := false
 
 			for _, m := range sTarget.Metrics {
 				value, err := pmeparser.FetchValue(sTarget.Url, m.Path, content, contentType, m.Regex)
@@ -81,9 +85,15 @@ func main() {
 
 				pusher.Collector(i)
 
+				if !hasMetrics {
+					hasMetrics = true
+				}
+
 			}
 
-			err = instrument.Push(sTarget.Url, pusher)
+			if hasMetrics {
+				err = instrument.Push(sTarget.Url, pusher)
+			}
 
 			if err != nil {
 				log.Println(err)

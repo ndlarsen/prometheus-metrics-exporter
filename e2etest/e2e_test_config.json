@@ -1,21 +1,160 @@
 {
-  "pushGatewayUrl": "http://localhost:9091",
+  "pushGatewayUrl": "http://pushgateway:9091",
   "scrapeTargets": [
     {
-      "url": "http://localhost:8080/jsonWithoutBasicAuth",
+      "url": "http://simplewebserver:8080/jsonWithoutBasicAuth",
       "mimeType": "json",
-      "jobName": "TestJsonNoBasicAuthJobName",
+      "jobName": "TestJsonWithoutBasicAuthJobNameGauge",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_json_help_name",
-          "help": "test json help value",
+          "name": "test_json_help_name_without_basic_auth_gauge",
+          "help": "test json help value without basic auth gauge",
           "path": "friends.1.id",
           "instrumentType": "gauge"
         }
       ],
       "labels": [
-        {"name": "TestJsonNoBasicAuthLabelName", "value": "TestJsonNoBasicAuthLabelValue"}
+        {"name": "TestJsonWithoutBasicAuthLabelNameGauge", "value": "TestJsonWithoutBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonWithBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "json",
+      "jobName": "TestJsonWithBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_with_basic_auth_gauge",
+          "help": "test json help value with basic auth gauge",
+          "path": "friends.1.id",
+          "instrumentType": "gauge"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonWithBasicAuthLabelNameGauge", "value": "TestJsonWithBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlWithoutBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlWithoutBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_name_without_basic_auth_gauge",
+          "help": "test html help value without basic auth gauge",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlWithoutBasicAuthLabelNameGauge", "value": "TestHtmlWithoutBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlWithBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "html",
+      "jobName": "TestHtmlWithBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_name_with_basic_auth_gauge",
+          "help": "test html help value with basic auth gauge",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlWithBasicAuthLabelNameGauge", "value": "TestHtmlWithBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonWithoutBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonWithoutBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_without_basic_auth_counter",
+          "help": "test json help value without basic auth counter",
+          "path": "friends.1.id",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonWithoutBasicAuthLabelNameCounter", "value": "TestJsonWithoutBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonWithBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "json",
+      "jobName": "TestJsonWithBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_with_basic_auth_counter",
+          "help": "test json help value with basic auth counter",
+          "path": "friends.1.id",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonWithBasicAuthLabelNameCounter", "value": "TestJsonWithBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlWithoutBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlWithoutBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_name_without_basic_auth_counter",
+          "help": "test html help value without basic auth counter",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "counter",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlWithoutBasicAuthLabelNameCounter", "value": "TestHtmlWithoutBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlWithBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "html",
+      "jobName": "TestHtmlWithBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_name_with_basic_auth_counter",
+          "help": "test html help value with basic auth counter",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "counter",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlWithBasicAuthLabelNameCounter", "value": "TestHtmlWithBasicAuthLabelValueCounter"}
       ]
     }
   ]

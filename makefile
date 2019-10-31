@@ -13,6 +13,8 @@ DOCKER_TAG=pme_build:latest
 DOCKER_BUILD=docker build --compress --build-arg UID=${UID} --build-arg GID=${GID} --build-arg GOARCH=${GO_ARCH} -t ${DOCKER_TAG} .
 DOCKER_RUN=docker run --rm -it -v $$(pwd):/home/builduser ${DOCKER_TAG}
 
+clean:
+	bash -c "rm -rfv binaries/*"
 all_local: test_unit_local build_release_local
 build_linux:
 	GOOS=linux GO_ARCH=${GO_ARCH} ${GO_BUILD} -o ${BUILD_TARGET_DIR}/$(BINARY_NAME)-linux-${GO_ARCH} -v cmd/main.go
@@ -25,8 +27,8 @@ test_unit_docker:
 	${DOCKER_BUILD}
 	${DOCKER_RUN} make test_unit_local
 #test_e2e_local:
-#	docker-compose -f ./test_related/test-docker-compose.yml up --build --abort-on-container-exit
-#test_e2e_docker:
+test_e2e_docker:
+	docker-compose -f ./e2etest/e2etest.docker-compose.yml up --build --abort-on-container-exit
 build_release_docker:
 	${DOCKER_BUILD}
 	${DOCKER_RUN} make build_release_local

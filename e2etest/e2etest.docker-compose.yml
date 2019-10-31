@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+
+  pushgateway:
+    image: prom/pushgateway:v1.0.0
+    container_name: pushgateway
+    ports:
+      - "9091:9091"
+
+  simplewebserver:
+    build:
+      context: .
+      dockerfile: simpleTestServer.Dockerfile
+    depends_on:
+      - pushgateway
+    ports:
+      - "8080:8080"
+
+  pme_app:
+    build:
+      context: ../
+      dockerfile: e2etest/pmeClient.Dockerfile
+    container_name: pme_app
+    depends_on:
+      - simplewebserver
+      - pushgateway
+    entrypoint: ./e2etest/e2e_test_runner.sh
+    #entrypoint: make build_release_local && ./binaries/

@@ -26,4 +26,3 @@ services:
       - simplewebserver
       - pushgateway
     entrypoint: ./e2etest/e2e_test_runner.sh
-    #entrypoint: make build_release_local && ./binaries/

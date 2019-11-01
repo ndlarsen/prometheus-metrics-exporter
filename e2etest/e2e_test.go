@@ -16,14 +16,14 @@ func TestMain(m *testing.M) {
 }
 
 // JSON scraping tests
-func Test_check_json_gauge_no_basicAuth(t *testing.T) {
+func Test_check_json_gauge_no_regex_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_json_help_name_no_basic_auth_gauge",
-		"test json help value no basic auth gauge",
-		"TestJsonNoBasicAuthLabelNameGauge",
-		"TestJsonNoBasicAuthLabelValueGauge",
-		"TestJsonNoBasicAuthJobNameGauge",
+		"test_json_help_name_no_regex_no_basic_auth_gauge",
+		"test json help value no regex no basic auth gauge",
+		"TestJsonNoRegexNoBasicAuthLabelNameGauge",
+		"TestJsonNoRegexNoBasicAuthLabelValueGauge",
+		"TestJsonNoRegexNoBasicAuthJobNameGauge",
 		"gauge",
 		"65",
 	}
@@ -32,14 +32,14 @@ func Test_check_json_gauge_no_basicAuth(t *testing.T) {
 
 }
 
-func Test_check_json_gauge_basicAuth(t *testing.T) {
+func Test_check_json_gauge_no_regex_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_json_help_name_basic_auth_gauge",
-		"test json help value basic auth gauge",
-		"TestJsonBasicAuthLabelNameGauge",
-		"TestJsonBasicAuthLabelValueGauge",
-		"TestJsonBasicAuthJobNameGauge",
+		"test_json_help_name_no_regex_basic_auth_gauge",
+		"test json help value no regex basic auth gauge",
+		"TestJsonNoRegexBasicAuthLabelNameGauge",
+		"TestJsonNoRegexBasicAuthLabelValueGauge",
+		"TestJsonNoRegexBasicAuthJobNameGauge",
 		"gauge",
 		"65",
 	}
@@ -47,14 +47,14 @@ func Test_check_json_gauge_basicAuth(t *testing.T) {
 	doTest(t, true, values)
 }
 
-func Test_check_json_counter_no_basicAuth(t *testing.T) {
+func Test_check_json_counter_no_regex_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_json_help_name_no_basic_auth_counter",
-		"test json help value no basic auth counter",
-		"TestJsonNoBasicAuthLabelNameCounter",
-		"TestJsonNoBasicAuthLabelValueCounter",
-		"TestJsonNoBasicAuthJobNameCounter",
+		"test_json_help_name_no_regex_no_basic_auth_counter",
+		"test json help value no regex no basic auth counter",
+		"TestJsonNoRegexNoBasicAuthLabelNameCounter",
+		"TestJsonNoRegexNoBasicAuthLabelValueCounter",
+		"TestJsonNoRegexNoBasicAuthJobNameCounter",
 		"counter",
 		"65",
 	}
@@ -63,15 +63,76 @@ func Test_check_json_counter_no_basicAuth(t *testing.T) {
 
 }
 
-func Test_check_json_counter_basicAuth(t *testing.T) {
+func Test_check_json_counter_no_regex_basicAuth(t *testing.T) {
 	values := []string{
-		"test_json_help_name_basic_auth_counter",
-		"test json help value basic auth counter",
-		"TestJsonBasicAuthLabelNameCounter",
-		"TestJsonBasicAuthLabelValueCounter",
-		"TestJsonBasicAuthJobNameCounter",
+		"test_json_help_name_no_regex_basic_auth_counter",
+		"test json help value no regex basic auth counter",
+		"TestJsonNoRegexBasicAuthLabelNameCounter",
+		"TestJsonNoRegexBasicAuthLabelValueCounter",
+		"TestJsonNoRegexBasicAuthJobNameCounter",
 		"counter",
 		"65",
+	}
+
+	doTest(t, true, values)
+}
+
+func Test_check_json_gauge_regex_no_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_json_help_name_regex_no_basic_auth_gauge",
+		"test json help value regex no basic auth gauge",
+		"TestJsonRegexNoBasicAuthLabelNameGauge",
+		"TestJsonRegexNoBasicAuthLabelValueGauge",
+		"TestJsonRegexNoBasicAuthJobNameGauge",
+		"gauge",
+		"996",
+	}
+
+	doTest(t, false, values)
+
+}
+
+func Test_check_json_gauge_regex_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_json_help_name_regex_basic_auth_gauge",
+		"test json help value regex basic auth gauge",
+		"TestJsonRegexBasicAuthLabelNameGauge",
+		"TestJsonRegexBasicAuthLabelValueGauge",
+		"TestJsonRegexBasicAuthJobNameGauge",
+		"gauge",
+		"996",
+	}
+
+	doTest(t, true, values)
+}
+
+func Test_check_json_counter_regex_no_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_json_help_name_regex_no_basic_auth_counter",
+		"test json help value regex no basic auth counter",
+		"TestJsonRegexNoBasicAuthLabelNameCounter",
+		"TestJsonRegexNoBasicAuthLabelValueCounter",
+		"TestJsonRegexNoBasicAuthJobNameCounter",
+		"counter",
+		"996",
+	}
+
+	doTest(t, false, values)
+
+}
+
+func Test_check_json_counter_regex_basicAuth(t *testing.T) {
+	values := []string{
+		"test_json_help_name_regex_basic_auth_counter",
+		"test json help value regex basic auth counter",
+		"TestJsonRegexBasicAuthLabelNameCounter",
+		"TestJsonRegexBasicAuthLabelValueCounter",
+		"TestJsonRegexBasicAuthJobNameCounter",
+		"counter",
+		"996",
 	}
 
 	doTest(t, true, values)
@@ -182,8 +243,12 @@ func doTest(t *testing.T, withBasicAuth bool, values []string) {
 	str2 := fmt.Sprintf("# TYPE %s %s", values[0], values[5])
 	str3 := fmt.Sprintf("%s{%s=\"%s\",hostname=\"simplewebserver\",instance=\"\",job=\"%s\"} %s", values[0], values[2], values[3], values[4], values[6])
 
-	if !(strings.Contains(bodyStr, str1) && strings.Contains(bodyStr, str2) && strings.Contains(bodyStr, str3)) {
-		t.Fatal()
+	stringArr := []string{str1, str2, str3}
+
+	for _, s := range stringArr {
+		if !strings.Contains(bodyStr, s) {
+			t.Errorf("Expected string: \"%s\" was not found", s)
+		}
 	}
 
 }

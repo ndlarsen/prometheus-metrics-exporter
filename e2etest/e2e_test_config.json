@@ -4,18 +4,18 @@
     {
       "url": "http://simplewebserver:8080/jsonNoBasicAuth",
       "mimeType": "json",
-      "jobName": "TestJsonNoBasicAuthJobNameGauge",
+      "jobName": "TestJsonNoRegexNoBasicAuthJobNameGauge",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_json_help_name_no_basic_auth_gauge",
-          "help": "test json help value no basic auth gauge",
+          "name": "test_json_help_name_no_regex_no_basic_auth_gauge",
+          "help": "test json help value no regex no basic auth gauge",
           "path": "friends.1.id",
           "instrumentType": "gauge"
         }
       ],
       "labels": [
-        {"name": "TestJsonNoBasicAuthLabelNameGauge", "value": "TestJsonNoBasicAuthLabelValueGauge"}
+        {"name": "TestJsonNoRegexNoBasicAuthLabelNameGauge", "value": "TestJsonNoRegexNoBasicAuthLabelValueGauge"}
       ]
     },
     {
@@ -25,20 +25,142 @@
         "password": "password"
       },
       "mimeType": "json",
-      "jobName": "TestJsonBasicAuthJobNameGauge",
+      "jobName": "TestJsonNoRegexBasicAuthJobNameGauge",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_json_help_name_basic_auth_gauge",
-          "help": "test json help value basic auth gauge",
+          "name": "test_json_help_name_no_regex_basic_auth_gauge",
+          "help": "test json help value no regex basic auth gauge",
           "path": "friends.1.id",
           "instrumentType": "gauge"
         }
       ],
       "labels": [
-        {"name": "TestJsonBasicAuthLabelNameGauge", "value": "TestJsonBasicAuthLabelValueGauge"}
+        {"name": "TestJsonNoRegexBasicAuthLabelNameGauge", "value": "TestJsonNoRegexBasicAuthLabelValueGauge"}
       ]
     },
+    {
+      "url": "http://simplewebserver:8080/jsonNoBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonNoRegexNoBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_no_regex_no_basic_auth_counter",
+          "help": "test json help value no regex no basic auth counter",
+          "path": "friends.1.id",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonNoRegexNoBasicAuthLabelNameCounter", "value": "TestJsonNoRegexNoBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "json",
+      "jobName": "TestJsonNoRegexBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_no_regex_basic_auth_counter",
+          "help": "test json help value no regex basic auth counter",
+          "path": "friends.1.id",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonNoRegexBasicAuthLabelNameCounter", "value": "TestJsonNoRegexBasicAuthLabelValueCounter"}
+      ]
+    },
+
+
+    {
+      "url": "http://simplewebserver:8080/jsonNoBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonRegexNoBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_regex_no_basic_auth_gauge",
+          "help": "test json help value regex no basic auth gauge",
+          "path": "phone",
+          "instrumentType": "gauge",
+          "regex": "\\((\\d+)\\) "
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonRegexNoBasicAuthLabelNameGauge", "value": "TestJsonRegexNoBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "json",
+      "jobName": "TestJsonRegexBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_regex_basic_auth_gauge",
+          "help": "test json help value regex basic auth gauge",
+          "path": "phone",
+          "instrumentType": "gauge",
+          "regex": "\\((\\d+)\\) "
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonRegexBasicAuthLabelNameGauge", "value": "TestJsonRegexBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonNoBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonRegexNoBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_regex_no_basic_auth_counter",
+          "help": "test json help value regex no basic auth counter",
+          "path": "phone",
+          "instrumentType": "counter",
+          "regex": "\\((\\d+)\\) "
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonRegexNoBasicAuthLabelNameCounter", "value": "TestJsonRegexNoBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "json",
+      "jobName": "TestJsonRegexBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_help_name_regex_basic_auth_counter",
+          "help": "test json help value regex basic auth counter",
+          "path": "phone",
+          "instrumentType": "counter",
+          "regex": "\\((\\d+)\\) "
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonRegexBasicAuthLabelNameCounter", "value": "TestJsonRegexBasicAuthLabelValueCounter"}
+      ]
+    },
+
+
     {
       "url": "http://simplewebserver:8080/htmlNoBasicAuth",
       "mimeType": "html",
@@ -77,44 +199,6 @@
       ],
       "labels": [
         {"name": "TestHtmlBasicAuthLabelNameGauge", "value": "TestHtmlBasicAuthLabelValueGauge"}
-      ]
-    },
-    {
-      "url": "http://simplewebserver:8080/jsonNoBasicAuth",
-      "mimeType": "json",
-      "jobName": "TestJsonNoBasicAuthJobNameCounter",
-      "timeoutInSecs": 10,
-      "metrics": [
-        {
-          "name": "test_json_help_name_no_basic_auth_counter",
-          "help": "test json help value no basic auth counter",
-          "path": "friends.1.id",
-          "instrumentType": "counter"
-        }
-      ],
-      "labels": [
-        {"name": "TestJsonNoBasicAuthLabelNameCounter", "value": "TestJsonNoBasicAuthLabelValueCounter"}
-      ]
-    },
-    {
-      "url": "http://simplewebserver:8080/jsonBasicAuth",
-      "basicAuth": {
-        "username": "username",
-        "password": "password"
-      },
-      "mimeType": "json",
-      "jobName": "TestJsonBasicAuthJobNameCounter",
-      "timeoutInSecs": 10,
-      "metrics": [
-        {
-          "name": "test_json_help_name_basic_auth_counter",
-          "help": "test json help value basic auth counter",
-          "path": "friends.1.id",
-          "instrumentType": "counter"
-        }
-      ],
-      "labels": [
-        {"name": "TestJsonBasicAuthLabelNameCounter", "value": "TestJsonBasicAuthLabelValueCounter"}
       ]
     },
     {

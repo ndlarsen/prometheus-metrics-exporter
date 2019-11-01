@@ -12,7 +12,12 @@ import (
 func TestFetchValue_NoSuchElement(t *testing.T) {
 
 	handle, openErr := os.Open("../../test/lorem_ipsum.html")
-	defer handle.Close()
+
+	defer func() {
+		if _err := handle.Close(); _err != nil {
+			openErr = _err
+		}
+	}()
 
 	if openErr != nil {
 		t.Fatalf("Unable to open file: %s", openErr.Error())
@@ -33,7 +38,12 @@ func TestFetchValue_NoSuchElement(t *testing.T) {
 func TestFetchValue_MoreThanOneElement(t *testing.T) {
 
 	handle, openErr := os.Open("../../test/lorem_ipsum.html")
-	defer handle.Close()
+
+	defer func() {
+		if _err := handle.Close(); _err != nil {
+			openErr = _err
+		}
+	}()
 
 	if openErr != nil {
 		t.Fatalf("Unable to open file: %s", openErr.Error())

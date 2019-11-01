@@ -32,27 +32,3 @@ type ErrorHtmlParserTooManyElements struct {
 func (h ErrorHtmlParserTooManyElements) Error() string {
 	return h.Err
 }
-
-type ErrorHtmlParserRegexCompileError struct {
-	Err string
-}
-
-func (h ErrorHtmlParserRegexCompileError) Error() string {
-	return h.Err
-}
-
-type ErrorHtmlParserRegexNoMatch struct {
-	Err string
-}
-
-func (h ErrorHtmlParserRegexNoMatch) Error() string {
-	return h.Err
-}
-
-type ErrorHtmlParserRegexNoCaptureGroup struct {
-	Err string
-}
-
-func (h ErrorHtmlParserRegexNoCaptureGroup) Error() string {
-	return h.Err
-}

@@ -226,7 +226,7 @@ func Test_FetchValue_Regex_Compile_Error(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserRegexCompileError) {
+	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexCompileError) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -258,7 +258,7 @@ func Test_FetchValue_Regex_No_Match(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserRegexNoMatch) {
+	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoMatch) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -290,7 +290,7 @@ func Test_FetchValue_Regex_No_Capture_Group(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserRegexNoCaptureGroup) {
+	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoCaptureGroup) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {

@@ -41,6 +41,9 @@ const HtmlString = `<!DOCTYPE html>
 				<li>
 					This item has a numeric value somewhere. 567MB is an odd amount of RAM.
 				</li>
+				<li>
+					223
+				</li>
 			</ul>
 		</div>
 	</body>

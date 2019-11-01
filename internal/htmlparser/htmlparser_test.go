@@ -300,3 +300,35 @@ func Test_FetchValue_Regex_No_Capture_Group(t *testing.T) {
 	}
 
 }
+
+func Test_FetchValue_No_Regex(t *testing.T) {
+
+	const expectedValue float64 = 600
+	const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lorem ipsum</title>
+</head>
+<body>
+<ul>
+    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+    <li>Aliquam tincidunt mauris eu risus.</li>
+    <li>600</li>
+</ul>
+</body>
+</html>`
+
+	path := "html/body/ul/li[3]"
+
+	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), "")
+
+	if parseErr != nil {
+		t.Errorf("Test failed unexpectedly: %s", parseErr)
+	} else if value != expectedValue {
+		t.Errorf("Expected \"%f\" got \"%f\"", expectedValue, value)
+	}
+
+	t.Log("Test succeeded as expected.")
+
+}

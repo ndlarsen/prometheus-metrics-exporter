@@ -139,14 +139,74 @@ func Test_check_json_counter_regex_basicAuth(t *testing.T) {
 }
 
 // HTML scraping tests
-func Test_check_html_gauge_no_basicAuth(t *testing.T) {
+func Test_check_html_gauge_no_regex_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_no_basic_auth_gauge",
-		"test html help value no basic auth gauge",
-		"TestHtmlNoBasicAuthLabelNameGauge",
-		"TestHtmlNoBasicAuthLabelValueGauge",
-		"TestHtmlNoBasicAuthJobNameGauge",
+		"test_html_help_name_no_regex_no_basic_auth_gauge",
+		"test html help value no regex no basic auth gauge",
+		"TestHtmlNoRegexNoBasicAuthLabelNameGauge",
+		"TestHtmlNoRegexNoBasicAuthLabelValueGauge",
+		"TestHtmlNoRegexNoBasicAuthJobNameGauge",
+		"gauge",
+		"223",
+	}
+
+	doTest(t, false, values)
+}
+
+func Test_check_html_gauge_no_regex_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_name_no_regex_basic_auth_gauge",
+		"test html help value no regex basic auth gauge",
+		"TestHtmlNoRegexBasicAuthLabelNameGauge",
+		"TestHtmlNoRegexBasicAuthLabelValueGauge",
+		"TestHtmlNoRegexBasicAuthJobNameGauge",
+		"gauge",
+		"223",
+	}
+
+	doTest(t, true, values)
+}
+
+func Test_check_html_counter_no_regex_no_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_no_regex_name_no_basic_auth_counter",
+		"test html help no regex value no basic auth counter",
+		"TestHtmlNoRegexNoBasicAuthLabelNameCounter",
+		"TestHtmlNoRegexNoBasicAuthLabelValueCounter",
+		"TestHtmlNoRegexNoBasicAuthJobNameCounter",
+		"counter",
+		"223",
+	}
+
+	doTest(t, false, values)
+}
+
+func Test_check_html_counter_no_regex_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_no_regex_name_basic_auth_counter",
+		"test html help no regex value basic auth counter",
+		"TestHtmlNoRegexBasicAuthLabelNameCounter",
+		"TestHtmlNoRegexBasicAuthLabelValueCounter",
+		"TestHtmlNoRegexBasicAuthJobNameCounter",
+		"counter",
+		"223",
+	}
+
+	doTest(t, true, values)
+}
+
+func Test_check_html_gauge_regex_no_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_regex_name_no_basic_auth_gauge",
+		"test html help regex value no basic auth gauge",
+		"TestHtmlRegexNoBasicAuthLabelNameGauge",
+		"TestHtmlRegexNoBasicAuthLabelValueGauge",
+		"TestHtmlRegexNoBasicAuthJobNameGauge",
 		"gauge",
 		"567",
 	}
@@ -154,14 +214,14 @@ func Test_check_html_gauge_no_basicAuth(t *testing.T) {
 	doTest(t, false, values)
 }
 
-func Test_check_html_gauge_basicAuth(t *testing.T) {
+func Test_check_html_gauge_regex_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_basic_auth_gauge",
-		"test html help value basic auth gauge",
-		"TestHtmlBasicAuthLabelNameGauge",
-		"TestHtmlBasicAuthLabelValueGauge",
-		"TestHtmlBasicAuthJobNameGauge",
+		"test_html_help_regex_name_basic_auth_gauge",
+		"test html help regex value basic auth gauge",
+		"TestHtmlRegexBasicAuthLabelNameGauge",
+		"TestHtmlRegexBasicAuthLabelValueGauge",
+		"TestHtmlRegexBasicAuthJobNameGauge",
 		"gauge",
 		"567",
 	}
@@ -169,14 +229,14 @@ func Test_check_html_gauge_basicAuth(t *testing.T) {
 	doTest(t, true, values)
 }
 
-func Test_check_html_counter_no_basicAuth(t *testing.T) {
+func Test_check_html_counter_regex_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_no_basic_auth_counter",
-		"test html help value no basic auth counter",
-		"TestHtmlNoBasicAuthLabelNameCounter",
-		"TestHtmlNoBasicAuthLabelValueCounter",
-		"TestHtmlNoBasicAuthJobNameCounter",
+		"test_html_help_regex_name_no_basic_auth_counter",
+		"test html help regex value no basic auth counter",
+		"TestHtmlRegexNoBasicAuthLabelNameCounter",
+		"TestHtmlRegexNoBasicAuthLabelValueCounter",
+		"TestHtmlRegexNoBasicAuthJobNameCounter",
 		"counter",
 		"567",
 	}
@@ -184,14 +244,14 @@ func Test_check_html_counter_no_basicAuth(t *testing.T) {
 	doTest(t, false, values)
 }
 
-func Test_check_html_counter_basicAuth(t *testing.T) {
+func Test_check_html_counter_regex_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_basic_auth_counter",
-		"test html help value basic auth counter",
-		"TestHtmlBasicAuthLabelNameCounter",
-		"TestHtmlBasicAuthLabelValueCounter",
-		"TestHtmlBasicAuthJobNameCounter",
+		"test_html_help_regex_name_basic_auth_counter",
+		"test html help regex value basic auth counter",
+		"TestHtmlRegexBasicAuthLabelNameCounter",
+		"TestHtmlRegexBasicAuthLabelValueCounter",
+		"TestHtmlRegexBasicAuthJobNameCounter",
 		"counter",
 		"567",
 	}

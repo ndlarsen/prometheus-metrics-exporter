@@ -7,6 +7,7 @@ import (
 	. "prometheus-metrics-exporter/internal/matcher"
 	"prometheus-metrics-exporter/internal/pmeerrors/htmlparser"
 	"strconv"
+	"strings"
 )
 
 func FetchValue(path string, reader io.Reader, pattern string) (float64, error) {
@@ -17,9 +18,13 @@ func FetchValue(path string, reader io.Reader, pattern string) (float64, error) 
 		return -1, err
 	}
 
-	value, err = Match(value, pattern)
-	if err != nil {
-		return -1, err
+	if pattern != "" {
+		value, err = Match(value, pattern)
+		if err != nil {
+			return -1, err
+		}
+	} else {
+		value = strings.TrimSpace(value)
 	}
 
 	f, err := strconv.ParseFloat(value, 64)

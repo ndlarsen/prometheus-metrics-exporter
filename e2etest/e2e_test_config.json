@@ -77,8 +77,6 @@
         {"name": "TestJsonNoRegexBasicAuthLabelNameCounter", "value": "TestJsonNoRegexBasicAuthLabelValueCounter"}
       ]
     },
-
-
     {
       "url": "http://simplewebserver:8080/jsonNoBasicAuth",
       "mimeType": "json",
@@ -161,22 +159,25 @@
     },
 
 
+
+
+
+
     {
       "url": "http://simplewebserver:8080/htmlNoBasicAuth",
       "mimeType": "html",
-      "jobName": "TestHtmlNoBasicAuthJobNameGauge",
+      "jobName": "TestHtmlNoRegexNoBasicAuthJobNameGauge",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_html_help_name_no_basic_auth_gauge",
-          "help": "test html help value no basic auth gauge",
-          "path": "/html/body/div/ul/li[2]",
-          "instrumentType": "gauge",
-          "regex": "somewhere. (\\d+)MB"
+          "name": "test_html_help_name_no_regex_no_basic_auth_gauge",
+          "help": "test html help value no regex no basic auth gauge",
+          "path": "/html/body/div/ul/li[3]",
+          "instrumentType": "gauge"
         }
       ],
       "labels": [
-        {"name": "TestHtmlNoBasicAuthLabelNameGauge", "value": "TestHtmlNoBasicAuthLabelValueGauge"}
+        {"name": "TestHtmlNoRegexNoBasicAuthLabelNameGauge", "value": "TestHtmlNoRegexNoBasicAuthLabelValueGauge"}
       ]
     },
     {
@@ -186,37 +187,35 @@
         "password": "password"
       },
       "mimeType": "html",
-      "jobName": "TestHtmlBasicAuthJobNameGauge",
+      "jobName": "TestHtmlNoRegexBasicAuthJobNameGauge",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_html_help_name_basic_auth_gauge",
-          "help": "test html help value basic auth gauge",
-          "path": "/html/body/div/ul/li[2]",
-          "instrumentType": "gauge",
-          "regex": "somewhere. (\\d+)MB"
+          "name": "test_html_help_name_no_regex_basic_auth_gauge",
+          "help": "test html help value no regex basic auth gauge",
+          "path": "/html/body/div/ul/li[3]",
+          "instrumentType": "gauge"
         }
       ],
       "labels": [
-        {"name": "TestHtmlBasicAuthLabelNameGauge", "value": "TestHtmlBasicAuthLabelValueGauge"}
+        {"name": "TestHtmlNoRegexBasicAuthLabelNameGauge", "value": "TestHtmlNoRegexBasicAuthLabelValueGauge"}
       ]
     },
     {
       "url": "http://simplewebserver:8080/htmlNoBasicAuth",
       "mimeType": "html",
-      "jobName": "TestHtmlNoBasicAuthJobNameCounter",
+      "jobName": "TestHtmlNoRegexNoBasicAuthJobNameCounter",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_html_help_name_no_basic_auth_counter",
-          "help": "test html help value no basic auth counter",
-          "path": "/html/body/div/ul/li[2]",
-          "instrumentType": "counter",
-          "regex": "somewhere. (\\d+)MB"
+          "name": "test_html_help_no_regex_name_no_basic_auth_counter",
+          "help": "test html help no regex value no basic auth counter",
+          "path": "/html/body/div/ul/li[3]",
+          "instrumentType": "counter"
         }
       ],
       "labels": [
-        {"name": "TestHtmlNoBasicAuthLabelNameCounter", "value": "TestHtmlNoBasicAuthLabelValueCounter"}
+        {"name": "TestHtmlNoRegexNoBasicAuthLabelNameCounter", "value": "TestHtmlNoRegexNoBasicAuthLabelValueCounter"}
       ]
     },
     {
@@ -226,20 +225,102 @@
         "password": "password"
       },
       "mimeType": "html",
-      "jobName": "TestHtmlBasicAuthJobNameCounter",
+      "jobName": "TestHtmlNoRegexBasicAuthJobNameCounter",
       "timeoutInSecs": 10,
       "metrics": [
         {
-          "name": "test_html_help_name_basic_auth_counter",
-          "help": "test html help value basic auth counter",
+          "name": "test_html_help_no_regex_name_basic_auth_counter",
+          "help": "test html help no regex value basic auth counter",
+          "path": "/html/body/div/ul/li[3]",
+          "instrumentType": "counter"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlNoRegexBasicAuthLabelNameCounter", "value": "TestHtmlNoRegexBasicAuthLabelValueCounter"}
+      ]
+    },
+
+
+    {
+      "url": "http://simplewebserver:8080/htmlNoBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlRegexNoBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_regex_name_no_basic_auth_gauge",
+          "help": "test html help regex value no basic auth gauge",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlRegexNoBasicAuthLabelNameGauge", "value": "TestHtmlRegexNoBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "html",
+      "jobName": "TestHtmlRegexBasicAuthJobNameGauge",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_regex_name_basic_auth_gauge",
+          "help": "test html help regex value basic auth gauge",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlRegexBasicAuthLabelNameGauge", "value": "TestHtmlRegexBasicAuthLabelValueGauge"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlNoBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlRegexNoBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_regex_name_no_basic_auth_counter",
+          "help": "test html help regex value no basic auth counter",
           "path": "/html/body/div/ul/li[2]",
           "instrumentType": "counter",
           "regex": "somewhere. (\\d+)MB"
         }
       ],
       "labels": [
-        {"name": "TestHtmlBasicAuthLabelNameCounter", "value": "TestHtmlBasicAuthLabelValueCounter"}
+        {"name": "TestHtmlRegexNoBasicAuthLabelNameCounter", "value": "TestHtmlRegexNoBasicAuthLabelValueCounter"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlBasicAuth",
+      "basicAuth": {
+        "username": "username",
+        "password": "password"
+      },
+      "mimeType": "html",
+      "jobName": "TestHtmlRegexBasicAuthJobNameCounter",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_help_regex_name_basic_auth_counter",
+          "help": "test html help regex value basic auth counter",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "counter",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlRegexBasicAuthLabelNameCounter", "value": "TestHtmlRegexBasicAuthLabelValueCounter"}
       ]
     }
+
   ]
 }

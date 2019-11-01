@@ -44,13 +44,15 @@ Configuration example:
           "name": "name_goes_here",
           "help": "help text goes here",
           "path": "json.path.to.value",
-          "instrumentType": "gauge"
+          "instrumentType": "gauge",
+          "regex": "(\\d+)"
         },
         {
           "name": "name_goes_here",
           "help": "help text goes here",
           "path": "some.other.path",
-          "instrumentType": "counter"
+          "instrumentType": "counter",
+          "regex": "(\\d+)"
         }
       ],
       "labels": [
@@ -122,8 +124,8 @@ Configuration example:
 - path: the path of the value for the instrument. (dot notation or xpath)
 - instrumentType: the type of the instrument. Counter and gauge are supported.
 - regex (optional): the regex to apply to the path content.
-  - An empty regex will return the entire path content.
-  - An omitted regex will return the entire path content.
+  - An empty regex will return the entire path content as a float.
+  - An omitted regex will return the entire path content as a float.
   - A nonempty regex must include a single capture group. 
 
 ### Labels

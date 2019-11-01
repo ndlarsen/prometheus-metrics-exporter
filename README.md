@@ -105,7 +105,7 @@ Configuration example:
 
 ### ScrapeTargets
 - url: the url to scrape from
-- basicAuth (optional) : basic auth information (Documented below)
+- basicAuth (optional) : information for authentication with the specific scrape target (Documented below)
 - mimeType: the content type of the scrape url. JSON and HTML are supported.
 - jobName: the job name to display in the pushgateway.
 - timeoutInSecs: the time to wait for response from the scrape target before timing out.

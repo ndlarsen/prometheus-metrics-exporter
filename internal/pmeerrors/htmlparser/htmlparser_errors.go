@@ -1,4 +1,4 @@
-package pmeerrors
+package htmlparser
 
 // html parser related
 type ErrorHtmlParserTypeConversion struct {

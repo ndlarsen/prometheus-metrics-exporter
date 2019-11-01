@@ -1,4 +1,4 @@
-package pmeerrors
+package config
 
 // Config related
 type ErrorConfigReadFile struct {

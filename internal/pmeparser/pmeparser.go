@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"prometheus-metrics-exporter/internal/htmlparser"
 	"prometheus-metrics-exporter/internal/jsonparser"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/pmeparser"
 )
 
 func FetchValue(url string, path string, data []byte, contentType string, regex string) (float64, error) {
@@ -16,7 +16,7 @@ func FetchValue(url string, path string, data []byte, contentType string, regex 
 		return htmlparser.FetchValue(path, bytes.NewBuffer(data), regex)
 	} else {
 		errStr := fmt.Sprintf("Parsing: Invalid content type supplied \"%s\" on \"%s\"", contentType, url)
-		return -1, ErrorParserInvalidContentType{Err: errStr}
+		return -1, pmeparser.ErrorParserInvalidContentType{Err: errStr}
 	}
 
 }

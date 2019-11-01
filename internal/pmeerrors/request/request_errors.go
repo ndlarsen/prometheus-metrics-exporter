@@ -1,4 +1,4 @@
-package pmeerrors
+package request
 
 // Request related
 type ErrorRequestClient struct {

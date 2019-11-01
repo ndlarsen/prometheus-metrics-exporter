@@ -1,4 +1,4 @@
-package pmeerrors
+package scrapetarget
 
 // scrapeTarget related
 type ErrorScrapeTargetUnmarshal struct {

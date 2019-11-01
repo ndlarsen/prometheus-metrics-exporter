@@ -3,7 +3,8 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/basicauth"
+	"prometheus-metrics-exporter/internal/pmeerrors/scrapetarget"
 	. "prometheus-metrics-exporter/internal/types"
 	"reflect"
 	"testing"
@@ -206,7 +207,7 @@ func Test_ScrapeTarget_BasicAuth_Empty_Username(t *testing.T) {
 
 	err := st.UnmarshalJSON(jsonBytes)
 
-	if err != nil && err == err.(ErrorBasicAuthUnmarshal) && err.Error() == "Username is empty" {
+	if err != nil && err == err.(basicauth.ErrorBasicAuthUnmarshal) && err.Error() == "Username is empty" {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -246,7 +247,7 @@ func Test_ScrapeTarget_BasicAuth_Empty_Password(t *testing.T) {
 
 	err := st.UnmarshalJSON(jsonBytes)
 
-	if err != nil && err == err.(ErrorBasicAuthUnmarshal) && err.Error() == "Password is empty" {
+	if err != nil && err == err.(basicauth.ErrorBasicAuthUnmarshal) && err.Error() == "Password is empty" {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -283,7 +284,7 @@ func Test_ScrapeTarget_Empty_Url(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -310,7 +311,7 @@ func Test_ScrapeTarget_Empty_Metrics(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -343,7 +344,7 @@ func Test_ScrapeTarget_Empty_Labels(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -378,7 +379,7 @@ func Test_ScrapeTarget_Empty_MimeType(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -413,7 +414,7 @@ func Test_ScrapeTarget_Empty_JobName(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -447,7 +448,7 @@ func Test_ScrapeTarget_Empty_Timeout(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &st)
 
-	if err != nil && err == err.(ErrorScrapeTargetUnmarshal) {
+	if err != nil && err == err.(scrapetarget.ErrorScrapeTargetUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())

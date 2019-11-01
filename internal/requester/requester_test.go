@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"net/http"
 	"net/http/httptest"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/request"
 	. "prometheus-metrics-exporter/internal/requester"
 	. "prometheus-metrics-exporter/internal/types"
 	"strings"
@@ -41,9 +41,9 @@ func Test_GetContent_Timeout(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, 1)
 
-	if err != nil && err == err.(ErrorRequestClient) && strings.Contains(err.Error(), "Client.Timeout") {
+	if err != nil && err == err.(request.ErrorRequestClient) && strings.Contains(err.Error(), "Client.Timeout") {
 		t.Log("OK. Client error as expected")
-	} else if err != nil && err != err.(*ErrorRequestTimeOut) {
+	} else if err != nil && err != err.(*request.ErrorRequestTimeOut) {
 		t.Fatalf("Test failed with an unexpexted error: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
@@ -65,9 +65,9 @@ func Test_GetContent_ResponseCode404(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatus404) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatus404) {
 		t.Log("OK. As expected the response code was 404")
-	} else if err != nil && err != err.(ErrorRequestResponseStatus404) {
+	} else if err != nil && err != err.(request.ErrorRequestResponseStatus404) {
 		t.Fatalf("Test failed with an unexpexted error: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
@@ -89,9 +89,9 @@ func Test_GetContent_ResponseCode500(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatus500) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatus500) {
 		t.Log("OK. As expected the response code was 500")
-	} else if err != nil && err != err.(ErrorRequestResponseStatus500) {
+	} else if err != nil && err != err.(request.ErrorRequestResponseStatus500) {
 		t.Fatalf("Test failed with an unexpexted error: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
@@ -113,9 +113,9 @@ func Test_GetContent_ResponseCodeNot200(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatusNot200) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatusNot200) {
 		t.Log("OK. As expected the response code was not 200")
-	} else if err != nil && err != err.(ErrorRequestResponseStatusNot200) {
+	} else if err != nil && err != err.(request.ErrorRequestResponseStatusNot200) {
 		t.Fatalf("Method failed unexpectedly: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
@@ -136,9 +136,9 @@ func Test_GetContent_ResponseCode200NoContentType(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestContentTypeParse) {
+	if err != nil && err == err.(request.ErrorRequestContentTypeParse) {
 		t.Log("OK. As expected no content type found")
-	} else if err != nil && err != err.(ErrorRequestContentTypeParse) {
+	} else if err != nil && err != err.(request.ErrorRequestContentTypeParse) {
 		t.Fatalf("Method failed unexpectedly: %s", err)
 	} else {
 		t.Fatal("Test failed unexpectedly.")
@@ -160,7 +160,7 @@ func Test_GetContent_NotAcceptedContentType(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestInvalidContentTypeFound) {
+	if err != nil && err == err.(request.ErrorRequestInvalidContentTypeFound) {
 		t.Log("OK. As expected invalid content type found")
 	} else if err != nil {
 		t.Fatalf("Method failed unexpectedly: %s", err)
@@ -186,7 +186,7 @@ func Test_GetContent_RequestBodyReadError(t *testing.T) {
 
 	_, _, err := GetContent(ts.URL, nil, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestUnableToReadBody) {
+	if err != nil && err == err.(request.ErrorRequestUnableToReadBody) {
 		t.Log("OK. Unable to read body as expected.")
 	} else if err != nil {
 		t.Fatalf("Method failed unexpectedly: %s", err)
@@ -301,7 +301,7 @@ func Test_GetContent_With_BasicAuth_No_Username(t *testing.T) {
 	ba := &BasicAuth{Username: "", Password: password}
 	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatus401) {
 		t.Log("OK. Ideal line of events")
 	} else if err != nil {
 		t.Fatalf("Method failed unexpectedly: %s", err)
@@ -338,7 +338,7 @@ func Test_GetContent_With_BasicAuth_No_Password(t *testing.T) {
 	ba := &BasicAuth{Username: "", Password: password}
 	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatus401) {
 		t.Log("OK. Ideal line of events")
 	} else if err != nil {
 		t.Fatalf("Method failed unexpectedly: %s", err)
@@ -375,7 +375,7 @@ func Test_GetContent_With_BasicAuth_Neither_Username_Nor_Password(t *testing.T) 
 	ba := &BasicAuth{Username: "", Password: ""}
 	_, _, err := GetContent(ts.URL, ba, mimeType, timeoutInSecs)
 
-	if err != nil && err == err.(ErrorRequestResponseStatus401) {
+	if err != nil && err == err.(request.ErrorRequestResponseStatus401) {
 		t.Log("OK. Ideal line of events")
 	} else if err != nil {
 		t.Fatalf("Method failed unexpectedly: %s", err)

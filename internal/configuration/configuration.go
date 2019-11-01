@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/config"
 	. "prometheus-metrics-exporter/internal/types"
 )
 
@@ -27,7 +27,7 @@ func readConfigFile(fileName string) ([]byte, error) {
 
 	if err != nil {
 		errString := fmt.Sprintf("Configuration: Could not read file: \"%s\"", fileName)
-		return nil, ErrorConfigReadFile{Err: errString}
+		return nil, config.ErrorConfigReadFile{Err: errString}
 	}
 
 	return byteValue, err
@@ -40,7 +40,7 @@ func convertToConfig(input []byte) (*Config, error) {
 
 	if err != nil {
 		errString := fmt.Sprintf("Configuration: Could not load configuration: \"%s\"", err.Error())
-		return nil, ErrorConfigConversion{Err: errString}
+		return nil, config.ErrorConfigConversion{Err: errString}
 	}
 
 	return cfg, nil

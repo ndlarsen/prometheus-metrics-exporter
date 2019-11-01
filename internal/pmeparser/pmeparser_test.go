@@ -1,7 +1,7 @@
 package pmeparser_test
 
 import (
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/pmeparser"
 	. "prometheus-metrics-exporter/internal/pmeparser"
 	"testing"
 )
@@ -68,7 +68,7 @@ func Test_FetchValue_Invalid_Content_Type(t *testing.T) {
 
 	_, err := FetchValue(url, path, data, contentType, regex)
 
-	if err != nil && err == err.(ErrorParserInvalidContentType) {
+	if err != nil && err == err.(pmeparser.ErrorParserInvalidContentType) {
 		t.Log("Test succeeded as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly. %s", err.Error())

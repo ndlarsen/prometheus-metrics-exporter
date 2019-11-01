@@ -3,7 +3,7 @@ package configuration_test
 import (
 	"encoding/json"
 	. "prometheus-metrics-exporter/internal/configuration"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/config"
 	. "prometheus-metrics-exporter/internal/types"
 	"reflect"
 	"testing"
@@ -29,9 +29,9 @@ func TestInvalidFileFormat(t *testing.T) {
 	var fileName = "../../test/invalidJsonFormat.json"
 	_, err := LoadConfig(fileName)
 
-	if err == err.(ErrorConfigConversion) {
+	if err == err.(config.ErrorConfigConversion) {
 		t.Log("Could not convert file content as expected.")
-	} else if err != nil && err != err.(ErrorConfigConversion) {
+	} else if err != nil && err != err.(config.ErrorConfigConversion) {
 		t.Errorf("Failed unexpectedly.")
 	} else {
 		t.Errorf("Didn't fail as expected.")

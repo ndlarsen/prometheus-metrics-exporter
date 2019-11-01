@@ -3,7 +3,7 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/label"
 	. "prometheus-metrics-exporter/internal/types"
 	"testing"
 )
@@ -60,7 +60,7 @@ func Test_Label_Empty_Name(t *testing.T) {
 
 	err := json.Unmarshal(jsonLabelOK, &lbl)
 
-	if err != nil && err == err.(ErrorLabelUnmarshal) {
+	if err != nil && err == err.(label.ErrorLabelUnmarshal) {
 		t.Logf("Test failed as expected: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err)
@@ -79,7 +79,7 @@ func Test_Label_Empty_Value(t *testing.T) {
 
 	err := json.Unmarshal(jsonLabelOK, &lbl)
 
-	if err != nil && err == err.(ErrorLabelUnmarshal) {
+	if err != nil && err == err.(label.ErrorLabelUnmarshal) {
 		t.Logf("Test failed as expected: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err)

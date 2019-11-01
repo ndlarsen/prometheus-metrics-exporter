@@ -1,4 +1,4 @@
-package pmeerrors
+package metric
 
 //Metrics related
 type ErrorMetricUnmarshal struct {

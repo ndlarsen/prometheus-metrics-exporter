@@ -3,7 +3,7 @@ package jsonparser_test
 import (
 	"fmt"
 	. "prometheus-metrics-exporter/internal/jsonparser"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/jsonparser"
 	"testing"
 )
 
@@ -85,7 +85,7 @@ func Test_FetchValuesFromJSON_Bool(t *testing.T) {
 
 	_, err := FetchValue(testStr, []byte(jsonString))
 
-	if err != nil && err == err.(ErrorJsonParserInvalidType) {
+	if err != nil && err == err.(jsonparser.ErrorJsonParserInvalidType) {
 		str := fmt.Sprintf("Extracted value of \"%s\" was \"%t\" as expected.", testStr, expectedValue)
 		t.Log(str)
 	} else {
@@ -100,7 +100,7 @@ func Test_FetchValuesFromJSON_Nil(t *testing.T) {
 
 	_, err := FetchValue(testStr, []byte(jsonString))
 
-	if err != nil && err == err.(ErrorJsonParserInvalidType) {
+	if err != nil && err == err.(jsonparser.ErrorJsonParserInvalidType) {
 		str := fmt.Sprintf("Extracted value of \"%s\" was \"nil\" as expected.", testStr)
 		t.Log(str)
 	} else {

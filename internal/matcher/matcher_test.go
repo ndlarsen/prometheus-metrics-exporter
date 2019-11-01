@@ -1,7 +1,8 @@
-package matcher
+package matcher_test
 
 import (
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/matcher"
+	"prometheus-metrics-exporter/internal/pmeerrors/matcher"
 	"testing"
 )
 
@@ -32,7 +33,7 @@ func Test_FetchValue_Regex_Compile_Error(t *testing.T) {
 
 	value, parseErr := Match(str, regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexCompileError) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexCompileError) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -50,7 +51,7 @@ func Test_FetchValue_Regex_No_Match(t *testing.T) {
 
 	value, parseErr := Match(str, regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoMatch) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexNoMatch) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -68,7 +69,7 @@ func Test_FetchValue_Regex_No_Capture_Group(t *testing.T) {
 
 	value, parseErr := Match(str, regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoCaptureGroup) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexNoCaptureGroup) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {

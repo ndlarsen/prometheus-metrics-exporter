@@ -1,10 +1,11 @@
-package instrument
+package instrument_test
 
 import (
 	"github.com/prometheus/client_golang/prometheus/push"
 	"net/http"
 	"net/http/httptest"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/instrument"
+	"prometheus-metrics-exporter/internal/pmeerrors/instrument"
 	"testing"
 )
 
@@ -40,7 +41,7 @@ func Test_CreateInstrument_Error_Unsupported_Instrument(t *testing.T) {
 
 	_, err := CreateInstrument("qwe", path, name, help, value)
 
-	if err != nil && err == err.(ErrorInstrumentUnsupportedType) {
+	if err != nil && err == err.(instrument.ErrorInstrumentUnsupportedType) {
 		t.Log("Parse error as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly %s", err)
@@ -51,7 +52,7 @@ func Test_CreateInstrument_Error_Missing_Required_InstrumentType(t *testing.T) {
 
 	_, err := CreateInstrument("", path, name, help, value)
 
-	if err != nil && err == err.(ErrorInstrumentMissingValue) {
+	if err != nil && err == err.(instrument.ErrorInstrumentMissingValue) {
 		t.Log("Parse error as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly %s", err)
@@ -62,7 +63,7 @@ func Test_CreateInstrument_Error_Missing_Required_JsonPath(t *testing.T) {
 
 	_, err := CreateInstrument(instrumentType, "", name, help, value)
 
-	if err != nil && err == err.(ErrorInstrumentMissingValue) {
+	if err != nil && err == err.(instrument.ErrorInstrumentMissingValue) {
 		t.Log("Parse error as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly %s", err)
@@ -87,7 +88,7 @@ func Test_Push_Response_Error(t *testing.T) {
 	registry.Collector(i)
 
 	err = Push(ts.URL, registry)
-	if err != nil && err == err.(ErrorInstrumentPushFailed) {
+	if err != nil && err == err.(instrument.ErrorInstrumentPushFailed) {
 		t.Log("Test succeeded.")
 	} else {
 		t.Fatalf("Test failed unexpectedly %s", err)
@@ -114,7 +115,7 @@ func Test_Push_Response_Url_Parse_Failure(t *testing.T) {
 
 	err = Push("local host", registry)
 
-	if err != nil && err == err.(ErrorInstrumentUrlParse) {
+	if err != nil && err == err.(instrument.ErrorInstrumentUrlParse) {
 		t.Log("Test succeeded.")
 		t.Log(err)
 	} else if err != nil {

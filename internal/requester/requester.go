@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"mime"
 	"net/http"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/request"
 	. "prometheus-metrics-exporter/internal/types"
 	"strings"
 	"time"
@@ -30,7 +30,7 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 
 	if err != nil {
 		errString := fmt.Sprintf("Requester: Client error with \"%s\"", err.Error())
-		return nil, "", ErrorRequestClient{Err: errString}
+		return nil, "", request.ErrorRequestClient{Err: errString}
 	}
 
 	responseStatus := response.StatusCode
@@ -39,32 +39,32 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",
 			responseStatus, url)
-		return nil, "", ErrorRequestResponseStatus401{Err: errString}
+		return nil, "", request.ErrorRequestResponseStatus401{Err: errString}
 	} else if responseStatus == http.StatusForbidden {
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",
 			responseStatus, url)
-		return nil, "", ErrorRequestResponseStatus403{Err: errString}
+		return nil, "", request.ErrorRequestResponseStatus403{Err: errString}
 	} else if responseStatus == http.StatusNotFound {
 
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",
 			responseStatus, url)
-		return nil, "", ErrorRequestResponseStatus404{Err: errString}
+		return nil, "", request.ErrorRequestResponseStatus404{Err: errString}
 
 	} else if responseStatus == http.StatusInternalServerError {
 
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",
 			responseStatus, url)
-		return nil, "", ErrorRequestResponseStatus500{Err: errString}
+		return nil, "", request.ErrorRequestResponseStatus500{Err: errString}
 
 	} else if responseStatus != http.StatusOK {
 
 		errString := fmt.Sprintf(
 			"Requester: Response status code was \"%d\" on \"%s\"",
 			responseStatus, url)
-		return nil, "", ErrorRequestResponseStatusNot200{Err: errString}
+		return nil, "", request.ErrorRequestResponseStatusNot200{Err: errString}
 
 	}
 
@@ -74,7 +74,7 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 	actualContentType, _, err := mime.ParseMediaType(receivedContentType)
 
 	if err != nil {
-		return nil, "", ErrorRequestContentTypeParse{Err: err.Error()}
+		return nil, "", request.ErrorRequestContentTypeParse{Err: err.Error()}
 	}
 
 	validContentType := func(contentType string, expectedContentType string) bool {
@@ -86,7 +86,7 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 		errString := fmt.Sprintf(
 			"Requester: Not a valid content type. Expected \"%s\" but got \"%s\"",
 			expectedContentType, receivedContentType)
-		return nil, "", ErrorRequestInvalidContentTypeFound{Err: errString}
+		return nil, "", request.ErrorRequestInvalidContentTypeFound{Err: errString}
 	}
 
 	body, err := ioutil.ReadAll(response.Body)
@@ -99,7 +99,7 @@ func GetContent(url string, basicAuth *BasicAuth, mimeType string, timeoutInSecs
 
 	if err != nil {
 		errStr := fmt.Sprintf("Requester: Unable to read from body \"%s\"", err)
-		return nil, "", ErrorRequestUnableToReadBody{Err: errStr}
+		return nil, "", request.ErrorRequestUnableToReadBody{Err: errStr}
 	}
 
 	return body, mimeType, nil

@@ -1,4 +1,4 @@
-package pmeerrors
+package matcher
 
 type ErrorMatcherRegexCompileError struct {
 	Err string

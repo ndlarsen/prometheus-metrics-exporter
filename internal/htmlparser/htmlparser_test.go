@@ -5,7 +5,8 @@ import (
 	"io"
 	"os"
 	. "prometheus-metrics-exporter/internal/htmlparser"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/htmlparser"
+	"prometheus-metrics-exporter/internal/pmeerrors/matcher"
 	"testing"
 )
 
@@ -27,7 +28,7 @@ func TestFetchValue_NoSuchElement(t *testing.T) {
 
 	_, parseErr := FetchValue(path, handle, "")
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserNoSuchElement) {
+	if parseErr != nil && parseErr == parseErr.(htmlparser.ErrorHtmlParserNoSuchElement) {
 		t.Log("Test failed as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly: %s", parseErr)
@@ -53,7 +54,7 @@ func TestFetchValue_MoreThanOneElement(t *testing.T) {
 
 	_, parseErr := FetchValue(path, handle, "")
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserTooManyElements) {
+	if parseErr != nil && parseErr == parseErr.(htmlparser.ErrorHtmlParserTooManyElements) {
 		t.Log("Test failed as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly: %s", parseErr)
@@ -74,7 +75,7 @@ func Test_FetchValue_ReadError(t *testing.T) {
 
 	_, parseErr := FetchValue(path, fakeReader{}, "")
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserParsing) {
+	if parseErr != nil && parseErr == parseErr.(htmlparser.ErrorHtmlParserParsing) {
 		t.Log("Test failed as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly: %s", parseErr)
@@ -133,7 +134,7 @@ func Test_FetchValue_ConversionError(t *testing.T) {
 
 	_, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), "")
 
-	if parseErr != nil && parseErr == parseErr.(ErrorHtmlParserTypeConversion) {
+	if parseErr != nil && parseErr == parseErr.(htmlparser.ErrorHtmlParserTypeConversion) {
 		t.Log("Conversion failed as expected.")
 	} else {
 		t.Fatalf("Test failed unexpectedly: %s", parseErr)
@@ -226,7 +227,7 @@ func Test_FetchValue_Regex_Compile_Error(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexCompileError) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexCompileError) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -258,7 +259,7 @@ func Test_FetchValue_Regex_No_Match(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoMatch) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexNoMatch) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {
@@ -290,7 +291,7 @@ func Test_FetchValue_Regex_No_Capture_Group(t *testing.T) {
 
 	value, parseErr := FetchValue(path, bytes.NewBuffer([]byte(html)), regex)
 
-	if parseErr != nil && parseErr == parseErr.(ErrorMatcherRegexNoCaptureGroup) {
+	if parseErr != nil && parseErr == parseErr.(matcher.ErrorMatcherRegexNoCaptureGroup) {
 		t.Log("Test succeeded as expected.")
 		t.Log("value: ", value, "Error: ", parseErr)
 	} else {

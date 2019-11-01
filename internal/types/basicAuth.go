@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/basicauth"
 )
 
 type BasicAuth struct {
@@ -21,11 +21,11 @@ func (ba *BasicAuth) UnmarshalJSON(data []byte) error {
 	}
 
 	if t.Username == "" {
-		return ErrorBasicAuthUnmarshal{Err: "Username is empty"}
+		return basicauth.ErrorBasicAuthUnmarshal{Err: "Username is empty"}
 	}
 
 	if t.Password == "" {
-		return ErrorBasicAuthUnmarshal{Err: "Password is empty"}
+		return basicauth.ErrorBasicAuthUnmarshal{Err: "Password is empty"}
 	}
 
 	ba.Username = t.Username

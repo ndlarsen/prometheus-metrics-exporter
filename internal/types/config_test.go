@@ -3,7 +3,7 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/config"
 	. "prometheus-metrics-exporter/internal/types"
 	"reflect"
 	"testing"
@@ -148,7 +148,7 @@ func Test_Config_Empty_PushGatewayUrl(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &conf)
 
-	if err != nil && err == err.(ErrorConfigUnmarshal) {
+	if err != nil && err == err.(config.ErrorConfigUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())
@@ -171,7 +171,7 @@ func Test_Config_Empty_ScrapeTargets(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &conf)
 
-	if err != nil && err == err.(ErrorConfigUnmarshal) {
+	if err != nil && err == err.(config.ErrorConfigUnmarshal) {
 		t.Logf("Test succeeded: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err.Error())

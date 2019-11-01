@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/label"
 )
 
 type Label struct {
@@ -21,11 +21,11 @@ func (l *Label) UnmarshalJSON(data []byte) error {
 	}
 
 	if t.Name == "" {
-		return ErrorLabelUnmarshal{Err: "Label: Name is empty"}
+		return label.ErrorLabelUnmarshal{Err: "Label: Name is empty"}
 	}
 
 	if t.Value == "" {
-		return ErrorLabelUnmarshal{Err: "Label: Value is empty"}
+		return label.ErrorLabelUnmarshal{Err: "Label: Value is empty"}
 	}
 
 	l.Name = t.Name

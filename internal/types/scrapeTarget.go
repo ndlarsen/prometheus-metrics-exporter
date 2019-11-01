@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/scrapetarget"
 )
 
 type ScrapeTarget struct {
@@ -26,27 +26,27 @@ func (st *ScrapeTarget) UnmarshalJSON(data []byte) error {
 	}
 
 	if t.Url == "" {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Url is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Url is empty"}
 	}
 
 	if t.Metrics == nil || len(t.Metrics) < 1 {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Metrics is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Metrics is empty"}
 	}
 
 	if t.Labels == nil || len(t.Labels) < 1 {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Labels is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: Labels is empty"}
 	}
 
 	if t.MimeType == "" {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: MimeType is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: MimeType is empty"}
 	}
 
 	if t.JobName == "" {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: JobName is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: JobName is empty"}
 	}
 
 	if t.TimeoutInSecs < 1 {
-		return ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: TimeoutInSecs is empty"}
+		return scrapetarget.ErrorScrapeTargetUnmarshal{Err: "ScrapeTarget: TimeoutInSecs is empty"}
 	}
 
 	if t.BasicAuth != nil {

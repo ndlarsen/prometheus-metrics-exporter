@@ -1,4 +1,4 @@
-package pmeerrors
+package jsonparser
 
 // Json parser related
 type ErrorJsonParserInvalidType struct {

@@ -3,7 +3,7 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/metric"
 	. "prometheus-metrics-exporter/internal/types"
 	"testing"
 )
@@ -63,7 +63,7 @@ func Test_Metric_Empty_Name(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &m)
 
-	if err != nil && err == err.(ErrorMetricUnmarshal) {
+	if err != nil && err == err.(metric.ErrorMetricUnmarshal) {
 		t.Logf("Test succeeded.")
 	} else {
 		t.Fatalf("Test failed unexpectedly")
@@ -84,7 +84,7 @@ func Test_Metric_Empty_Help(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &m)
 
-	if err != nil && err == err.(ErrorMetricUnmarshal) {
+	if err != nil && err == err.(metric.ErrorMetricUnmarshal) {
 		t.Logf("Test succeeded.")
 	} else {
 		t.Fatalf("Test failed unexpectedly")
@@ -105,7 +105,7 @@ func Test_Metric_Empty_Path(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &m)
 
-	if err != nil && err == err.(ErrorMetricUnmarshal) {
+	if err != nil && err == err.(metric.ErrorMetricUnmarshal) {
 		t.Logf("Test succeeded.")
 	} else {
 		t.Fatalf("Test failed unexpectedly")
@@ -126,7 +126,7 @@ func Test_Metric_Empty_InstrumentType(t *testing.T) {
 
 	err := json.Unmarshal(jsonBytes, &m)
 
-	if err != nil && err == err.(ErrorMetricUnmarshal) {
+	if err != nil && err == err.(metric.ErrorMetricUnmarshal) {
 		t.Logf("Test succeeded.")
 	} else {
 		t.Fatalf("Test failed unexpectedly")

@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	"prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/config"
 )
 
 type Config struct {
@@ -21,11 +21,11 @@ func (c *Config) UnmarshalJSON(data []byte) error {
 	}
 
 	if t.PushGatewayUrl == "" {
-		return pmeerrors.ErrorConfigUnmarshal{Err: "Config: PushGateway url is empty"}
+		return config.ErrorConfigUnmarshal{Err: "Config: PushGateway url is empty"}
 	}
 
 	if t.ScrapeTargets == nil || len(t.ScrapeTargets) < 1 {
-		return pmeerrors.ErrorConfigUnmarshal{Err: "Config: ScrapeTarget metrics is empty"}
+		return config.ErrorConfigUnmarshal{Err: "Config: ScrapeTarget metrics is empty"}
 	}
 
 	c.ScrapeTargets = t.ScrapeTargets

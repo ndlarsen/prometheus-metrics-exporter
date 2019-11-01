@@ -3,7 +3,7 @@ package types_test
 import (
 	"encoding/json"
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	. "prometheus-metrics-exporter/internal/pmeerrors/basicauth"
 	. "prometheus-metrics-exporter/internal/types"
 	"testing"
 )
@@ -75,7 +75,7 @@ func Test_BasicAuth_Empty_Password(t *testing.T) {
 	err := json.Unmarshal(jsonLabelOK, &ba)
 
 	if err != nil && err == err.(ErrorBasicAuthUnmarshal) {
-		t.Logf("Test failed as expected: %s", err.Error())
+		t.Logf("Test succeeded as expected: %s", err.Error())
 	} else if err != nil {
 		t.Fatalf("Test failed unexpectedly: %s", err)
 	} else {

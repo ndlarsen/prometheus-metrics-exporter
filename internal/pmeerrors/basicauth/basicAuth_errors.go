@@ -1,4 +1,4 @@
-package pmeerrors
+package basicauth
 
 // BasicAuth related
 type ErrorBasicAuthUnmarshal struct {

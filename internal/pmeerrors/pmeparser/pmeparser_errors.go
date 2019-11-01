@@ -1,4 +1,4 @@
-package pmeerrors
+package pmeparser
 
 // pme parser related
 type ErrorParserInvalidContentType struct {

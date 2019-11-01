@@ -5,14 +5,14 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/push"
 	"net/url"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/instrument"
 )
 
 func CreateInstrument(instrumentType string, path string, name string, help string, value float64) (prometheus.Collector, error) {
 	if path == "" {
-		return nil, ErrorInstrumentMissingValue{Err: "Instrument creation: required field path is empty"}
+		return nil, instrument.ErrorInstrumentMissingValue{Err: "Instrument creation: required field path is empty"}
 	} else if instrumentType == "" {
-		return nil, ErrorInstrumentMissingValue{Err: "Instrument creation: required field instrumentType is empty"}
+		return nil, instrument.ErrorInstrumentMissingValue{Err: "Instrument creation: required field instrumentType is empty"}
 	}
 
 	if instrumentType == "gauge" {
@@ -21,7 +21,7 @@ func CreateInstrument(instrumentType string, path string, name string, help stri
 		return createCounter(name, help, value), nil
 	} else {
 		errStr := fmt.Sprintf("Instrument creation: unsupported instrument type \"%s\"", instrumentType)
-		return nil, ErrorInstrumentUnsupportedType{Err: errStr}
+		return nil, instrument.ErrorInstrumentUnsupportedType{Err: errStr}
 	}
 
 }
@@ -49,7 +49,7 @@ func Push(scrapeUrl string, registry *push.Pusher) error {
 	u, err := url.ParseRequestURI(scrapeUrl)
 	if err != nil {
 		errStr := fmt.Sprintf("Instrument creation: Unable to parse url \"%s\"", scrapeUrl)
-		return ErrorInstrumentUrlParse{Err: errStr}
+		return instrument.ErrorInstrumentUrlParse{Err: errStr}
 	}
 
 	registry.Grouping("hostname", u.Hostname())
@@ -58,7 +58,7 @@ func Push(scrapeUrl string, registry *push.Pusher) error {
 
 	if err != nil {
 		errStr := fmt.Sprintf("Instrument creation: pushing failed \"%s\"", err.Error())
-		return ErrorInstrumentPushFailed{Err: errStr}
+		return instrument.ErrorInstrumentPushFailed{Err: errStr}
 	}
 
 	return nil

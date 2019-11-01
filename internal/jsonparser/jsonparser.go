@@ -3,7 +3,7 @@ package jsonparser
 import (
 	"fmt"
 	"github.com/tidwall/gjson"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/jsonparser"
 	"strconv"
 )
 
@@ -12,7 +12,7 @@ func FetchValue(path string, json []byte) (float64, error) {
 
 	if !result.Exists() {
 		errStr := fmt.Sprintf("Json parsing: no value found for \"%s\"", path)
-		return -1, ErrorJsonParserValueEmpty{Err: errStr}
+		return -1, jsonparser.ErrorJsonParserValueEmpty{Err: errStr}
 	} else if result.Type == gjson.Number {
 		return result.Num, nil
 	} else if result.Type == gjson.String {
@@ -20,13 +20,13 @@ func FetchValue(path string, json []byte) (float64, error) {
 
 		if err != nil {
 			errStr := fmt.Sprintf("Json parsing: unable to parse as float \"%s\"", result.Raw)
-			return f, ErrorJsonParserTypeConversion{Err: errStr}
+			return f, jsonparser.ErrorJsonParserTypeConversion{Err: errStr}
 		}
 
 		return f, nil
 	} else {
 		errStr := "Json parsing: invalid type found"
-		return -1, ErrorJsonParserInvalidType{Err: errStr}
+		return -1, jsonparser.ErrorJsonParserInvalidType{Err: errStr}
 	}
 
 }

@@ -1,4 +1,4 @@
-package pmeerrors
+package label
 
 // Label related
 type ErrorLabelUnmarshal struct {

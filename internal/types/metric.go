@@ -2,7 +2,7 @@ package types
 
 import (
 	"encoding/json"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/metric"
 )
 
 type Metric struct {
@@ -24,19 +24,19 @@ func (m *Metric) UnmarshalJSON(data []byte) error {
 	}
 
 	if t.Name == "" {
-		return ErrorMetricUnmarshal{Err: "Metric: Name is empty"}
+		return metric.ErrorMetricUnmarshal{Err: "Metric: Name is empty"}
 	}
 
 	if t.Help == "" {
-		return ErrorMetricUnmarshal{Err: "Metric: Help is empty"}
+		return metric.ErrorMetricUnmarshal{Err: "Metric: Help is empty"}
 	}
 
 	if t.Path == "" {
-		return ErrorMetricUnmarshal{Err: "Metric: Path is empty"}
+		return metric.ErrorMetricUnmarshal{Err: "Metric: Path is empty"}
 	}
 
 	if t.InstrumentType == "" {
-		return ErrorMetricUnmarshal{Err: "Metric: InstrumentType is empty"}
+		return metric.ErrorMetricUnmarshal{Err: "Metric: InstrumentType is empty"}
 	}
 
 	m.Name = t.Name

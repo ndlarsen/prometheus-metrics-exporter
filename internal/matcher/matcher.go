@@ -2,7 +2,7 @@ package matcher
 
 import (
 	"fmt"
-	. "prometheus-metrics-exporter/internal/pmeerrors"
+	"prometheus-metrics-exporter/internal/pmeerrors/matcher"
 	"regexp"
 )
 
@@ -13,17 +13,17 @@ func Match(content string, pattern string) (string, error) {
 
 	r, err := regexp.Compile(pattern)
 	if err != nil {
-		return "", ErrorMatcherRegexCompileError{Err: err.Error()}
+		return "", matcher.ErrorMatcherRegexCompileError{Err: err.Error()}
 	}
 
 	subMatchAll := r.FindStringSubmatch(content)
 
 	if subMatchAll == nil {
 		errString := fmt.Sprintf("HTML parsing: No match for regex \"%s\" found", pattern)
-		return "", ErrorMatcherRegexNoMatch{Err: errString}
+		return "", matcher.ErrorMatcherRegexNoMatch{Err: errString}
 	} else if len(subMatchAll) == 1 {
 		errString := "HTML parsing: No capture group supplied"
-		return "", ErrorMatcherRegexNoCaptureGroup{Err: errString}
+		return "", matcher.ErrorMatcherRegexNoCaptureGroup{Err: errString}
 	} else {
 		return subMatchAll[1], nil
 	}

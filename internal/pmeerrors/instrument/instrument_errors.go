@@ -1,4 +1,4 @@
-package pmeerrors
+package instrument
 
 // instrument related
 type ErrorInstrumentMissingValue struct {

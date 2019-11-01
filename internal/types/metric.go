@@ -10,7 +10,7 @@ type Metric struct {
 	Help           string `json:"help"`
 	Path           string `json:"path"`
 	InstrumentType string `json:"instrumentType"`
-	Regex          string `json:"regex"`
+	Regex          string `json:"regex,omitempty"`
 }
 
 func (m *Metric) UnmarshalJSON(data []byte) error {

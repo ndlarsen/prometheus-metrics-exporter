@@ -11,7 +11,7 @@ import (
 func FetchValue(url string, path string, data []byte, contentType string, regex string) (float64, error) {
 
 	if contentType == "json" {
-		return jsonparser.FetchValue(path, data)
+		return jsonparser.FetchValue(path, data, regex)
 	} else if contentType == "html" {
 		return htmlparser.FetchValue(path, bytes.NewBuffer(data), regex)
 	} else {

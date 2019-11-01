@@ -121,8 +121,9 @@ Configuration example:
 - help: the help text for the instrument.
 - path: the path of the value for the instrument. (dot notation or xpath)
 - instrumentType: the type of the instrument. Counter and gauge are supported.
-- regex: (html only) the regex to apply to the path content.
+- regex (optional): the regex to apply to the path content.
   - An empty regex will return the entire path content.
+  - An omitted regex will return the entire path content.
   - A nonempty regex must include a single capture group. 
 
 ### Labels

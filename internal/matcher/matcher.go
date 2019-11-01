@@ -19,10 +19,10 @@ func Match(content string, pattern string) (string, error) {
 	subMatchAll := r.FindStringSubmatch(content)
 
 	if subMatchAll == nil {
-		errString := fmt.Sprintf("HTML parsing: No match for regex \"%s\" found", pattern)
+		errString := fmt.Sprintf("Matcher: No match for regex \"%s\" found", pattern)
 		return "", matcher.ErrorMatcherRegexNoMatch{Err: errString}
 	} else if len(subMatchAll) == 1 {
-		errString := "HTML parsing: No capture group supplied"
+		errString := "Matcher: No capture group supplied"
 		return "", matcher.ErrorMatcherRegexNoCaptureGroup{Err: errString}
 	} else {
 		return subMatchAll[1], nil

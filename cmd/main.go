@@ -18,11 +18,23 @@ var cfg *types.Config
 
 func init() {
 
+	appName := "prometheus-metrics-exporter"
+	appVersion := "v1.1.3"
+
 	configPath := flag.String("config", "", "the path to the configuration file")
+	help := flag.Bool("help", false, "prints this help text ")
+	version := flag.Bool("version", false, "prints the version of the application")
 
 	flag.Parse()
 
-	if *configPath == "" {
+	if *version {
+		str := fmt.Sprintf("%s: %s", appName, appVersion)
+		println(str)
+		os.Exit(0)
+	} else if *help {
+		flag.PrintDefaults()
+		os.Exit(0)
+	} else if *configPath == "" {
 		flag.PrintDefaults()
 		os.Exit(1)
 	}

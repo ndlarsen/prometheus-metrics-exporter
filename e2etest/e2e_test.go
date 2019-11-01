@@ -15,14 +15,15 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func Test_check_json_gauge_without_basicAuth(t *testing.T) {
+// JSON scraping tests
+func Test_check_json_gauge_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_json_help_name_without_basic_auth_gauge",
-		"test json help value without basic auth gauge",
-		"TestJsonWithoutBasicAuthLabelNameGauge",
-		"TestJsonWithoutBasicAuthLabelValueGauge",
-		"TestJsonWithoutBasicAuthJobNameGauge",
+		"test_json_help_name_no_basic_auth_gauge",
+		"test json help value no basic auth gauge",
+		"TestJsonNoBasicAuthLabelNameGauge",
+		"TestJsonNoBasicAuthLabelValueGauge",
+		"TestJsonNoBasicAuthJobNameGauge",
 		"gauge",
 		"65",
 	}
@@ -31,14 +32,14 @@ func Test_check_json_gauge_without_basicAuth(t *testing.T) {
 
 }
 
-func Test_check_json_gauge_with_basicAuth(t *testing.T) {
+func Test_check_json_gauge_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_json_help_name_with_basic_auth_gauge",
-		"test json help value with basic auth gauge",
-		"TestJsonWithBasicAuthLabelNameGauge",
-		"TestJsonWithBasicAuthLabelValueGauge",
-		"TestJsonWithBasicAuthJobNameGauge",
+		"test_json_help_name_basic_auth_gauge",
+		"test json help value basic auth gauge",
+		"TestJsonBasicAuthLabelNameGauge",
+		"TestJsonBasicAuthLabelValueGauge",
+		"TestJsonBasicAuthJobNameGauge",
 		"gauge",
 		"65",
 	}
@@ -46,44 +47,14 @@ func Test_check_json_gauge_with_basicAuth(t *testing.T) {
 	doTest(t, true, values)
 }
 
-func Test_check_html_gauge_without_basicAuth(t *testing.T) {
+func Test_check_json_counter_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_without_basic_auth_gauge",
-		"test html help value without basic auth gauge",
-		"TestHtmlWithoutBasicAuthLabelNameGauge",
-		"TestHtmlWithoutBasicAuthLabelValueGauge",
-		"TestHtmlWithoutBasicAuthJobNameGauge",
-		"gauge",
-		"567",
-	}
-
-	doTest(t, false, values)
-}
-
-func Test_check_html_gauge_with_basicAuth(t *testing.T) {
-
-	values := []string{
-		"test_html_help_name_with_basic_auth_gauge",
-		"test html help value with basic auth gauge",
-		"TestHtmlWithBasicAuthLabelNameGauge",
-		"TestHtmlWithBasicAuthLabelValueGauge",
-		"TestHtmlWithBasicAuthJobNameGauge",
-		"gauge",
-		"567",
-	}
-
-	doTest(t, true, values)
-}
-
-func Test_check_json_counter_without_basicAuth(t *testing.T) {
-
-	values := []string{
-		"test_json_help_name_without_basic_auth_counter",
-		"test json help value without basic auth counter",
-		"TestJsonWithoutBasicAuthLabelNameCounter",
-		"TestJsonWithoutBasicAuthLabelValueCounter",
-		"TestJsonWithoutBasicAuthJobNameCounter",
+		"test_json_help_name_no_basic_auth_counter",
+		"test json help value no basic auth counter",
+		"TestJsonNoBasicAuthLabelNameCounter",
+		"TestJsonNoBasicAuthLabelValueCounter",
+		"TestJsonNoBasicAuthJobNameCounter",
 		"counter",
 		"65",
 	}
@@ -92,13 +63,13 @@ func Test_check_json_counter_without_basicAuth(t *testing.T) {
 
 }
 
-func Test_check_json_counter_with_basicAuth(t *testing.T) {
+func Test_check_json_counter_basicAuth(t *testing.T) {
 	values := []string{
-		"test_json_help_name_with_basic_auth_counter",
-		"test json help value with basic auth counter",
-		"TestJsonWithBasicAuthLabelNameCounter",
-		"TestJsonWithBasicAuthLabelValueCounter",
-		"TestJsonWithBasicAuthJobNameCounter",
+		"test_json_help_name_basic_auth_counter",
+		"test json help value basic auth counter",
+		"TestJsonBasicAuthLabelNameCounter",
+		"TestJsonBasicAuthLabelValueCounter",
+		"TestJsonBasicAuthJobNameCounter",
 		"counter",
 		"65",
 	}
@@ -106,14 +77,45 @@ func Test_check_json_counter_with_basicAuth(t *testing.T) {
 	doTest(t, true, values)
 }
 
-func Test_check_html_counter_without_basicAuth(t *testing.T) {
+// HTML scraping tests
+func Test_check_html_gauge_no_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_without_basic_auth_counter",
-		"test html help value without basic auth counter",
-		"TestHtmlWithoutBasicAuthLabelNameCounter",
-		"TestHtmlWithoutBasicAuthLabelValueCounter",
-		"TestHtmlWithoutBasicAuthJobNameCounter",
+		"test_html_help_name_no_basic_auth_gauge",
+		"test html help value no basic auth gauge",
+		"TestHtmlNoBasicAuthLabelNameGauge",
+		"TestHtmlNoBasicAuthLabelValueGauge",
+		"TestHtmlNoBasicAuthJobNameGauge",
+		"gauge",
+		"567",
+	}
+
+	doTest(t, false, values)
+}
+
+func Test_check_html_gauge_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_name_basic_auth_gauge",
+		"test html help value basic auth gauge",
+		"TestHtmlBasicAuthLabelNameGauge",
+		"TestHtmlBasicAuthLabelValueGauge",
+		"TestHtmlBasicAuthJobNameGauge",
+		"gauge",
+		"567",
+	}
+
+	doTest(t, true, values)
+}
+
+func Test_check_html_counter_no_basicAuth(t *testing.T) {
+
+	values := []string{
+		"test_html_help_name_no_basic_auth_counter",
+		"test html help value no basic auth counter",
+		"TestHtmlNoBasicAuthLabelNameCounter",
+		"TestHtmlNoBasicAuthLabelValueCounter",
+		"TestHtmlNoBasicAuthJobNameCounter",
 		"counter",
 		"567",
 	}
@@ -121,14 +123,14 @@ func Test_check_html_counter_without_basicAuth(t *testing.T) {
 	doTest(t, false, values)
 }
 
-func Test_check_html_counter_with_basicAuth(t *testing.T) {
+func Test_check_html_counter_basicAuth(t *testing.T) {
 
 	values := []string{
-		"test_html_help_name_with_basic_auth_counter",
-		"test html help value with basic auth counter",
-		"TestHtmlWithBasicAuthLabelNameCounter",
-		"TestHtmlWithBasicAuthLabelValueCounter",
-		"TestHtmlWithBasicAuthJobNameCounter",
+		"test_html_help_name_basic_auth_counter",
+		"test html help value basic auth counter",
+		"TestHtmlBasicAuthLabelNameCounter",
+		"TestHtmlBasicAuthLabelValueCounter",
+		"TestHtmlBasicAuthJobNameCounter",
 		"counter",
 		"567",
 	}

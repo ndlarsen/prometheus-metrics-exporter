@@ -157,12 +157,6 @@
         {"name": "TestJsonRegexBasicAuthLabelNameCounter", "value": "TestJsonRegexBasicAuthLabelValueCounter"}
       ]
     },
-
-
-
-
-
-
     {
       "url": "http://simplewebserver:8080/htmlNoBasicAuth",
       "mimeType": "html",
@@ -239,8 +233,6 @@
         {"name": "TestHtmlNoRegexBasicAuthLabelNameCounter", "value": "TestHtmlNoRegexBasicAuthLabelValueCounter"}
       ]
     },
-
-
     {
       "url": "http://simplewebserver:8080/htmlNoBasicAuth",
       "mimeType": "html",
@@ -320,7 +312,84 @@
       "labels": [
         {"name": "TestHtmlRegexBasicAuthLabelNameCounter", "value": "TestHtmlRegexBasicAuthLabelValueCounter"}
       ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlBasicAuthJobName401UnauthorizedNoCredentials",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_html_basic_auth_job_name_401_unauthorized_no_credentials",
+          "help": "test html basic auth job name 401 unauthorized no credentials",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlBasicAuthJobName401UnauthorizedNoCredentialsLabelName", "value": "TestHtmlBasicAuthJobName401UnauthorizedNoCredentialsLabelValue"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonBasicAuthJobName401UnauthorizedNoCredentials",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_json_basic_auth_job_name_401_unauthorized_no_credentials",
+          "help": "test json basic auth job name 401 unauthorized no credentials",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonBasicAuthJobName401UnauthorizedNoCredentialsLabelName", "value": "TestJsonBasicAuthJobName401UnauthorizedNoCredentialsLabelValue"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/htmlBasicAuth",
+      "mimeType": "html",
+      "jobName": "TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentials",
+      "timeoutInSecs": 10,
+      "basicAuth": {
+        "username": "qwe",
+        "password": "asd"
+      },
+      "metrics": [
+        {
+          "name": "test_html_basic_auth_job_name_401_unauthorized_no_credentials",
+          "help": "test html basic auth job name 401 unauthorized no credentials",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge"
+        }
+      ],
+      "labels": [
+        {"name": "TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName", "value": "TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue"}
+      ]
+    },
+    {
+      "url": "http://simplewebserver:8080/jsonBasicAuth",
+      "mimeType": "json",
+      "jobName": "TestJsonBasicAuthJobName401UnauthorizedInvalidCredentials",
+      "timeoutInSecs": 10,
+      "basicAuth": {
+        "username": "qwe",
+        "password": "asd"
+      },
+      "metrics": [
+        {
+          "name": "test_json_basic_auth_job_name_401_unauthorized_no_credentials",
+          "help": "test json basic auth job name 401 unauthorized no credentials",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName", "value": "TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue"}
+      ]
     }
-
   ]
 }

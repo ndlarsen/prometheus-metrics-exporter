@@ -28,7 +28,7 @@ func Test_check_json_gauge_no_regex_no_basicAuth(t *testing.T) {
 		"65",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 
 }
 
@@ -44,7 +44,7 @@ func Test_check_json_gauge_no_regex_basicAuth(t *testing.T) {
 		"65",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_json_counter_no_regex_no_basicAuth(t *testing.T) {
@@ -59,7 +59,7 @@ func Test_check_json_counter_no_regex_no_basicAuth(t *testing.T) {
 		"65",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 
 }
 
@@ -74,7 +74,7 @@ func Test_check_json_counter_no_regex_basicAuth(t *testing.T) {
 		"65",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_json_gauge_regex_no_basicAuth(t *testing.T) {
@@ -89,7 +89,7 @@ func Test_check_json_gauge_regex_no_basicAuth(t *testing.T) {
 		"996",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 
 }
 
@@ -105,7 +105,7 @@ func Test_check_json_gauge_regex_basicAuth(t *testing.T) {
 		"996",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_json_counter_regex_no_basicAuth(t *testing.T) {
@@ -120,7 +120,7 @@ func Test_check_json_counter_regex_no_basicAuth(t *testing.T) {
 		"996",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 
 }
 
@@ -135,7 +135,7 @@ func Test_check_json_counter_regex_basicAuth(t *testing.T) {
 		"996",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 // HTML scraping tests
@@ -151,7 +151,7 @@ func Test_check_html_gauge_no_regex_no_basicAuth(t *testing.T) {
 		"223",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 }
 
 func Test_check_html_gauge_no_regex_basicAuth(t *testing.T) {
@@ -166,7 +166,7 @@ func Test_check_html_gauge_no_regex_basicAuth(t *testing.T) {
 		"223",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_html_counter_no_regex_no_basicAuth(t *testing.T) {
@@ -181,7 +181,7 @@ func Test_check_html_counter_no_regex_no_basicAuth(t *testing.T) {
 		"223",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 }
 
 func Test_check_html_counter_no_regex_basicAuth(t *testing.T) {
@@ -196,7 +196,7 @@ func Test_check_html_counter_no_regex_basicAuth(t *testing.T) {
 		"223",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_html_gauge_regex_no_basicAuth(t *testing.T) {
@@ -211,7 +211,7 @@ func Test_check_html_gauge_regex_no_basicAuth(t *testing.T) {
 		"567",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 }
 
 func Test_check_html_gauge_regex_basicAuth(t *testing.T) {
@@ -226,7 +226,7 @@ func Test_check_html_gauge_regex_basicAuth(t *testing.T) {
 		"567",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
 func Test_check_html_counter_regex_no_basicAuth(t *testing.T) {
@@ -241,7 +241,7 @@ func Test_check_html_counter_regex_no_basicAuth(t *testing.T) {
 		"567",
 	}
 
-	doTest(t, false, values)
+	doTestOk(t, false, values, true)
 }
 
 func Test_check_html_counter_regex_basicAuth(t *testing.T) {
@@ -256,10 +256,70 @@ func Test_check_html_counter_regex_basicAuth(t *testing.T) {
 		"567",
 	}
 
-	doTest(t, true, values)
+	doTestOk(t, true, values, true)
 }
 
-func doTest(t *testing.T, withBasicAuth bool, values []string) {
+func Test_check_html_basicAuth_401_unauthorized_no_credentials(t *testing.T) {
+
+	values := []string{
+		"test_html_basic_auth_job_name_401_unauthorized_no_credentials",
+		"test html basic auth job name 401 unauthorized no credentials",
+		"TestHtmlBasicAuthJobName401UnauthorizedNoCredentialsLabelName",
+		"TestHtmlBasicAuthJobName401UnauthorizedNoCredentialsLabelValue",
+		"TestHtmlBasicAuthJobName401UnauthorizedNoCredentials",
+		"gauge",
+		"567",
+	}
+
+	doTestOk(t, true, values, false)
+}
+
+func Test_check_jon_basicAuth_401_unauthorized_no_credentials(t *testing.T) {
+
+	values := []string{
+		"test_json_basic_auth_job_name_401_unauthorized_no_credentials",
+		"test json basic auth job name 401 unauthorized no credentials",
+		"TestJsonBasicAuthJobName401UnauthorizedNoCredentialsLabelName",
+		"TestJsonBasicAuthJobName401UnauthorizedNoCredentialsLabelValue",
+		"TestJsonBasicAuthJobName401UnauthorizedNoCredentials",
+		"gauge",
+		"567",
+	}
+
+	doTestOk(t, true, values, false)
+}
+
+func Test_check_html_basicAuth_401_unauthorized_invalid_credentials(t *testing.T) {
+
+	values := []string{
+		"test_html_basic_auth_job_name_401_unauthorized_invalid_credentials",
+		"test html basic auth job name 401 unauthorized invalid credentials",
+		"TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName",
+		"TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue",
+		"TestHtmlBasicAuthJobName401UnauthorizedInvalidCredentials",
+		"gauge",
+		"567",
+	}
+
+	doTestOk(t, true, values, false)
+}
+
+func Test_check_jon_basicAuth_401_unauthorized_invalid_credentials(t *testing.T) {
+
+	values := []string{
+		"test_json_basic_auth_job_name_401_unauthorized_no_credentials",
+		"test json basic auth job name 401 unauthorized no credentials",
+		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName",
+		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue",
+		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentials",
+		"gauge",
+		"567",
+	}
+
+	doTestOk(t, true, values, false)
+}
+
+func doTestOk(t *testing.T, withBasicAuth bool, values []string, valuesPresent bool) {
 
 	client := &http.Client{
 		Timeout: 15 * time.Second,
@@ -271,10 +331,6 @@ func doTest(t *testing.T, withBasicAuth bool, values []string) {
 	if err != nil {
 		errStr := fmt.Sprintf("http client failed: %s", err)
 		t.Fatal(errStr)
-	}
-
-	if withBasicAuth {
-		req.SetBasicAuth("username", "password")
 	}
 
 	response, err := client.Do(req)
@@ -306,8 +362,10 @@ func doTest(t *testing.T, withBasicAuth bool, values []string) {
 	stringArr := []string{str1, str2, str3}
 
 	for _, s := range stringArr {
-		if !strings.Contains(bodyStr, s) {
-			t.Errorf("Expected string: \"%s\" was not found", s)
+		if valuesPresent && !strings.Contains(bodyStr, s) {
+			t.Errorf("String: \"%s\" was not found", s)
+		} else if !valuesPresent && strings.Contains(bodyStr, s) {
+			t.Errorf("String: \"%s\" was found", s)
 		}
 	}
 

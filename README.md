@@ -1,18 +1,22 @@
 # Prometheus Metrics Exporter
 
+## Description
 PME is a simple application to scrape values from JSON or HTML HTTP endpoints and push metrics to a prometheus 
 pushgateway.
-The application might come in handy when for example:
-- your scrape targets are behind a NAT firewall and your prometheus instance cannot reach them from the outside.
-- for some reason you cannot or are not allowed to set up a prometheus client on the systems you wish to monitor.
+The application might come in handy e.g. when:
+- your scrape targets are behind a NAT firewall and cannot be reached from the outside by your prometheus instance.
+- for some reason you cannot or will not set up a prometheus client on the systems you wish to monitor.
 
-The tool is neither a service nor a daemon. If you want continuous pull/push, set up something like a CRON job.
-Values can be scraped from JSON by [dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/adjsn/simple-dot-notation-access-to-json-data.html#GUID-7249417B-A337-4854-8040-192D5CEFD576)
- or from HTML by [XPath](https://en.wikipedia.org/wiki/XPath).
+The tool is neither a service nor a daemon. If you want continuous export of metrics, deploy a container with a CRON job executing the binary.
 
 Currently PME supports following prometheus instruments:
  - counter
  - gauge
+
+There are currently no plans on adding support for the reamining instruments.
+
+Values can be extracted from JSON by [dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/adjsn/simple-dot-notation-access-to-json-data.html#GUID-7249417B-A337-4854-8040-192D5CEFD576)
+ or from HTML by [XPath](https://en.wikipedia.org/wiki/XPath).
 
 ## Command line flags
 `-config=path/to/configFile`
@@ -132,8 +136,10 @@ Configuration example:
 - name: the name of the label.
 - value: the value of the label.
 
-## Go version
-The application was originally written in go v. 1.11.2. Latest tested in 1.11.13
+## Build/test
+The application was originally written in go 1.11.2. Latest tested under 1.11.13
+
+A makefile is available with rules for both building and testing the application.
 
 ## External libraries and/or modules
 The following libraries and/or modules are directly used in the project.

@@ -21,7 +21,7 @@ var cfg *types.Config
 func pushFailedRequest(jobName string) {
 
 	completionTime := prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: jobName,
+		Name: "failed_call",
 		Help: "The timestamp of the last failed call",
 	})
 	completionTime.SetToCurrentTime()

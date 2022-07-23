@@ -2,9 +2,9 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "feature/pipeline" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "feature/pipeline" ]
+    branches: [ "master" ]
 
 jobs:
 

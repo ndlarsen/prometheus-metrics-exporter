@@ -9,4 +9,4 @@ WORKDIR /go/src/build
 
 COPY . .
 
-RUN make build_linux
+RUN make build_binary

@@ -17,4 +17,10 @@ jobs:
  
     - name: build binary
       run: make build_linux
-      
+    
+    - name: unit tests
+      run: make test_unit_docker
+
+    - name: e2e tests
+      run: make test_e2e_docker
+

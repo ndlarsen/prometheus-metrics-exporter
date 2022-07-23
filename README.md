@@ -1,13 +1,15 @@
 # Prometheus Metrics Exporter
 
 ## Description
+
 PME is a simple application to scrape values from JSON or HTML HTTP endpoints and push metrics to a prometheus 
 pushgateway.
 The application might come in handy e.g. when:
 - your scrape targets are behind a NAT firewall and cannot be reached from the outside by your prometheus instance.
 - for some reason you cannot or will not set up a prometheus client on the systems you wish to monitor.
 
-The tool is neither a service nor a daemon. If you want continuous export of metrics, deploy a container with a CRON job executing the binary.
+The tool is neither a service nor a daemon. If you want continuous export of metrics, deploy a container with a CRON
+job executing the binary.
 
 Currently PME supports following prometheus instruments:
  - counter
@@ -15,20 +17,23 @@ Currently PME supports following prometheus instruments:
 
 There are currently no plans on adding support for the reamining instruments.
 
-Values can be extracted from JSON by [dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/adjsn/simple-dot-notation-access-to-json-data.html#GUID-7249417B-A337-4854-8040-192D5CEFD576)
- or from HTML by [XPath](https://en.wikipedia.org/wiki/XPath).
+Values can be extracted from JSON by
+[dot-notation](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/adjsn/simple-dot-notation-access-to-json-data.html#GUID-7249417B-A337-4854-8040-192D5CEFD576)
+or from HTML by [XPath](https://en.wikipedia.org/wiki/XPath).
 
 ## Command line flags
+
 `-config=path/to/configFile`
 
 ## Configuration
+
 The configuration format is JSON.
 
-Configuration overview:
+### Configuration overview:
 
 ![Configuration diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ndlarsen/prometheus-metrics-exporter/master/docs/configuration_overview.puml)
 
-Configuration example:
+### Configuration example:
 
 ```json
 {
@@ -105,11 +110,14 @@ Configuration example:
   ]
 }
 ```
+
 ### Global entries
+
 - pushGatewayUrl: the url of the pushgateway. It is global for the entire configuration.
 - scrapeTargets: a list of targets to scrape from. (Documented below)
 
 ### ScrapeTargets
+
 - url: the url to scrape from
 - basicAuth (optional) : information for authentication with the specific scrape target (Documented below)
 - mimeType: the content type of the scrape url. JSON and HTML are supported.
@@ -119,10 +127,12 @@ Configuration example:
 - labels: a list of labels for the current job. (Documented below)
 
 ### BasicAuth (optional)
+
 - username: the basic auth username
 - password: the basic auth password
 
 ### Metrics
+
 - name: the name for the instrument.
 - help: the help text for the instrument.
 - path: the path of the value for the instrument. (dot notation or xpath)
@@ -133,15 +143,17 @@ Configuration example:
   - A nonempty regex must include a single capture group. 
 
 ### Labels
+
 - name: the name of the label.
 - value: the value of the label.
 
 ## Build/test
-The application was originally written in go 1.11.2. Latest tested under 1.11.13
+The application is latest tested under go v1.15.15
 
 A makefile is available with rules for both building and testing the application.
 
 ## External libraries and/or modules
+
 The following libraries and/or modules are directly used in the project.
 Note that other modules might be indirectly included. 
 

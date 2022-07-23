@@ -1,4 +1,4 @@
-FROM golang:1.14.15-alpine3.13
+FROM golang:1.15.15-alpine3.14
 
 WORKDIR /go/src/simpleTestServer
 COPY ./simpleTestServer .

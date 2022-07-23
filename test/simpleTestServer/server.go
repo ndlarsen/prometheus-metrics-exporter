@@ -1,11 +1,11 @@
-package server
+package simpleTestServer
 
 import (
 	"fmt"
 	"log"
 	"net/http"
-	. "simpleTestServer/server/middleware"
-	. "simpleTestServer/server/writers"
+	. "prometheus-metrics-exporter/test/simpleTestServer/middleware"
+	. "prometheus-metrics-exporter/test/simpleTestServer/writers"
 )
 
 func Server(port *string) {

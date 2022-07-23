@@ -15,21 +15,22 @@ DOCKER_RUN=docker run --rm -it -v $$(pwd):/home/builduser ${DOCKER_TAG}
 
 clean:
 	bash -c "rm -rfv binaries/*"
-all_local: test_unit_local build_release_local
-build_linux:
+
+all_local: test_unit_local build_binary
+
+build_binary:
 	GOOS=linux GO_ARCH=${GO_ARCH} ${GO_BUILD} -o ${BUILD_TARGET_DIR}/$(BINARY_NAME)-linux-${GO_ARCH} -v cmd/main.go
-build_win:
-	GOOS=linux GO_ARCH=${GO_ARCH} ${GO_BUILD} -o ${BUILD_TARGET_DIR}/$(BINARY_NAME)-windows-${GO_ARCH} -v cmd/main.go
-build_release_local: build_linux build_win
+
+build_binary_docker:
+	${DOCKER_BUILD}
+	${DOCKER_RUN} make build_binary
+
 test_unit_local:
 	$(GO_TEST) -v -failfast ./internal/...
+
 test_unit_docker:
 	${DOCKER_BUILD}
 	${DOCKER_RUN} make test_unit_local
-#test_e2e_local:
-test_e2e_docker:
-	docker-compose -f ./e2etest/e2etest.docker-compose.yml up --build --abort-on-container-exit
-build_release_docker:
-	${DOCKER_BUILD}
-	${DOCKER_RUN} make build_release_local
 
+test_e2e:
+	docker-compose -f ./e2etest/e2etest.docker-compose.yml up --build --abort-on-container-exit

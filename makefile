@@ -34,3 +34,6 @@ test_unit_docker:
 
 test_e2e:
 	docker-compose -f ./e2etest/e2etest.docker-compose.yml up --build --abort-on-container-exit
+
+all: build_binary clean build_binary_docker clean test_unit_local test_unit_docker test_e2e
+

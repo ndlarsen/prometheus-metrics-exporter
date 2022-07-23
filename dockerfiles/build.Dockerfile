@@ -1,6 +1,6 @@
 FROM golang:1.15.15-alpine3.14
 
-RUN apk add make git
+RUN apk add make git bash
 
 ENV GO111MODULE=on \
     CGO_ENABLED=0

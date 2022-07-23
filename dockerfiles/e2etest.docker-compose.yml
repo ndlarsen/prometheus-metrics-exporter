@@ -10,8 +10,8 @@ services:
 
   simplewebserver:
     build:
-      context: .
-      dockerfile: simpleTestServer.Dockerfile
+      context: ..
+      dockerfile: dockerfiles/simpleTestServer.Dockerfile
     depends_on:
       - pushgateway
     ports:
@@ -19,10 +19,10 @@ services:
 
   pme_app:
     build:
-      context: ../
-      dockerfile: e2etest/pmeClient.Dockerfile
+      context: ..
+      dockerfile: dockerfiles/pmeClient.Dockerfile
     container_name: pme_app
     depends_on:
       - simplewebserver
       - pushgateway
-    entrypoint: ./e2etest/e2e_test_runner.sh
+    entrypoint: ./test/e2e/test_runner.sh

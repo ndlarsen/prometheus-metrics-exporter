@@ -26,7 +26,7 @@ func TestInvalidFileName(t *testing.T) {
 }
 
 func TestInvalidFileFormat(t *testing.T) {
-	var fileName = "../../test/invalidJsonFormat.json"
+	var fileName = "../../test/unit/invalidJsonFormat.json"
 	_, err := LoadConfig(fileName)
 
 	if err == err.(config.ErrorConfigConversion) {
@@ -40,7 +40,7 @@ func TestInvalidFileFormat(t *testing.T) {
 
 func TestValidFileFormat(t *testing.T) {
 
-	const fullPath = "../../test/validConfig.json"
+	const fullPath = "../../test/unit/validConfig.json"
 
 	fileConfig, loadErr := LoadConfig(fullPath)
 

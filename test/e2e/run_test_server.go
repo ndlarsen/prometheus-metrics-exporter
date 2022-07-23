@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"os"
-	. "simpleTestServer/server"
+	. "prometheus-metrics-exporter/test/simpleTestServer"
 )
 
 func main() {

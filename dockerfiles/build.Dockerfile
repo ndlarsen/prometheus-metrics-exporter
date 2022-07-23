@@ -1,4 +1,4 @@
-FROM golang:1.15.15-alpine3.14
+FROM golang:1.16.15-alpine3.15
 
 RUN apk add make git bash
 

@@ -1,0 +1,19 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "feature/pipeline" ]
+  pull_request:
+    branches: [ "feature/pipeline" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+      - name: build_linux
+      run: make build_linux
+      

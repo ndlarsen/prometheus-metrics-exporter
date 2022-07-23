@@ -11,7 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
     - name: build binary
       run: make build_binary
 
@@ -19,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - name: unit tests
       shell: 'script -q -e -c "bash {0}"'
       run: make test_unit_docker
@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - name: e2e tests
       run: make test_e2e
 

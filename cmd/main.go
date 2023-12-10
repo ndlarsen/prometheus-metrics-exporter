@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus/push"
 	"log"
 	"os"
 	"prometheus-metrics-exporter/internal/configuration"
@@ -12,9 +11,28 @@ import (
 	"prometheus-metrics-exporter/internal/requester"
 	"prometheus-metrics-exporter/internal/types"
 	"sync"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/push"
 )
 
 var cfg *types.Config
+
+func pushFailedRequest(jobName string) {
+
+	completionTime := prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "failed_call",
+		Help: "The timestamp of the last failed call",
+	})
+	completionTime.SetToCurrentTime()
+	if err := push.New(cfg.PushGatewayUrl, "prometheus_metrics_exporter").
+		Collector(completionTime).
+		Grouping("jobname", jobName).
+		Push(); err != nil {
+		log.Println("Could not push failed call time to Pushgateway:", err)
+	}
+
+}
 
 func init() {
 
@@ -73,6 +91,7 @@ func main() {
 			content, contentType, err := requester.GetContent(sTarget.Url, sTarget.BasicAuth, sTarget.MimeType, sTarget.TimeoutInSecs)
 
 			if err != nil {
+				pushFailedRequest(sTarget.JobName)
 				log.Println(err)
 				wg1.Done()
 				return

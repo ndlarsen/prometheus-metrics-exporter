@@ -390,6 +390,42 @@
       "labels": [
         {"name": "TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName", "value": "TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue"}
       ]
+    },
+    {
+      "url": "http://unavailablewebserver01:8080/",
+      "mimeType": "json",
+      "jobName": "TestPushFailedRequestToScrapeTarget01",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_push_failed_request_to_scrape_target_01",
+          "help": "test push failed request to scrape target 01",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestPushFailedRequestToScrapeTarget01LabelName", "value": "TestPushFailedRequestToScrapeTarget01LabelValue"}
+      ]
+    },
+    {
+      "url": "http://unavailablewebserver02:8080/",
+      "mimeType": "json",
+      "jobName": "TestPushFailedRequestToScrapeTarget02",
+      "timeoutInSecs": 10,
+      "metrics": [
+        {
+          "name": "test_push_failed_request_to_scrape_target_02",
+          "help": "test push failed request to scrape target 02",
+          "path": "/html/body/div/ul/li[2]",
+          "instrumentType": "gauge",
+          "regex": "somewhere. (\\d+)MB"
+        }
+      ],
+      "labels": [
+        {"name": "TestPushFailedRequestToScrapeTarget02LabelName", "value": "TestPushFailedRequestToScrapeTarget02LabelValue"}
+      ]
     }
   ]
 }

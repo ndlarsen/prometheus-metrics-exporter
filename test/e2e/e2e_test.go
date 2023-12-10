@@ -274,7 +274,7 @@ func Test_check_html_basicAuth_401_unauthorized_no_credentials(t *testing.T) {
 	doTestOk(t, true, values, false)
 }
 
-func Test_check_jon_basicAuth_401_unauthorized_no_credentials(t *testing.T) {
+func Test_check_json_basicAuth_401_unauthorized_no_credentials(t *testing.T) {
 
 	values := []string{
 		"test_json_basic_auth_job_name_401_unauthorized_no_credentials",
@@ -304,13 +304,28 @@ func Test_check_html_basicAuth_401_unauthorized_invalid_credentials(t *testing.T
 	doTestOk(t, true, values, false)
 }
 
-func Test_check_jon_basicAuth_401_unauthorized_invalid_credentials(t *testing.T) {
+func Test_check_json_basicAuth_401_unauthorized_invalid_credentials(t *testing.T) {
 
 	values := []string{
 		"test_json_basic_auth_job_name_401_unauthorized_no_credentials",
 		"test json basic auth job name 401 unauthorized no credentials",
 		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelName",
 		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentialsLabelValue",
+		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentials",
+		"gauge",
+		"567",
+	}
+
+	doTestOk(t, true, values, false)
+}
+
+func Test_check_push_failed_request_to_scrape_target(t *testing.T) {
+
+	values := []string{
+		"test_push_failed_request_to_scrape_target",
+		"test test push failed request to scrape target",
+		"TestPushFailedRequestToScrapeTargetLabelName",
+		"TestPushFailedRequestToScrapeTargetLabelValue",
 		"TestJsonBasicAuthJobName401UnauthorizedInvalidCredentials",
 		"gauge",
 		"567",

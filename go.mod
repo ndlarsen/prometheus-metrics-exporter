@@ -7,7 +7,7 @@ require (
 )
 
 require (
-	github.com/antchfx/xpath v1.2.5 // indirect
+	github.com/antchfx/xpath v1.3.6 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
